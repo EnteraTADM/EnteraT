@@ -1,0 +1,364 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<clay-model clay-version="2.0.1">
+<database-model author="" begin-script="" end-script="" id="25660846:1428f06e233:-8000" name="BaseDatos" sql-dialect-id="jp.azzurri.clay.dialect.MySQL_3_23_Dialect" version="1.0">
+<schema-list>
+<schema id="25660846:1428f06e233:-7ffd" name="DEFAULT_SCHEMA">
+<table-list>
+<table id="25660846:1428f06e233:-7fea" name="USUARIO">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7fe6" mandatory="true" name="id_usuario">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7fe3" mandatory="false" name="usr">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7fe2" mandatory="false" name="psw">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7fe1" mandatory="false" name="tipo">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-7fe9" name="PK_USUARIO">
+<primary-key-column name="id_usuario"/>
+</primary-key>
+</table>
+<table id="25660846:1428f06e233:-7f1e" name="PROFESORES">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7f1a" mandatory="true" name="id_profesor">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="25" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7f19" mandatory="false" name="nombre">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="40" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7e8e" mandatory="false" name="apellidos">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7e8b" mandatory="false" name="id_usuario">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7ac2" mandatory="true" name="id_asignatura">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-7f1d" name="PK_PROFESORES">
+<primary-key-column name="id_profesor"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="25660846:1428f06e233:-7dce" name="FK_PROFESORES_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_usuario" referenced-key-column-name="id_usuario"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="25660846:1428f06e233:-7e86" name="ALUMNO">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7e84" mandatory="true" name="id_alumno">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="25" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7e83" mandatory="false" name="nombre">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="40" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7e82" mandatory="false" name="apellidos">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="40" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7e81" mandatory="false" name="tutor">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7e80" mandatory="false" name="id_curso">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7e7f" mandatory="false" name="id_usuario">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-7e7e" name="PK_ALUMNO">
+<primary-key-column name="id_alumno"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="25660846:1428f06e233:-7e2e" name="FK_ALUMNO_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_USUARIO" referenced-table="USUARIO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_usuario" referenced-key-column-name="id_usuario"/>
+</foreign-key>
+<foreign-key id="25660846:1428f06e233:-7ce5" name="FK_ALUMNO_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CURSO" referenced-table="CURSO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_curso" referenced-key-column-name="id_curso"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="25660846:1428f06e233:-7d22" name="CURSO">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7d1e" mandatory="true" name="id_curso">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7d1b" mandatory="false" name="curso">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-7d21" name="PK_CURSO">
+<primary-key-column name="id_curso"/>
+</primary-key>
+</table>
+<table id="25660846:1428f06e233:-7c8b" name="IMPARTE">
+<column-list>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c87" mandatory="true" name="id">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c84" mandatory="false" name="id_profesor">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c83" mandatory="false" name="id_asignatura">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-7c8a" name="PK_IMPARTE">
+<primary-key-column name="id"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="25660846:1428f06e233:-7c6c" name="FK_IMPARTE_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_PROFESORES" referenced-table="PROFESORES" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_profesor" referenced-key-column-name="id_profesor"/>
+</foreign-key>
+<foreign-key id="25660846:1428f06e233:-7b15" name="FK_IMPARTE_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ASIGNATURA" referenced-table="ASIGNATURA" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_asignatura" referenced-key-column-name="id_asignatura"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="25660846:1428f06e233:-7c56" name="ASIGNATURA">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c52" mandatory="true" name="id_asignatura">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="4" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c4f" mandatory="false" name="codigo">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="15" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c4e" mandatory="false" name="asignatura">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c4d" mandatory="false" name="descripcion">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c4c" mandatory="false" name="id_curso">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c4b" mandatory="false" name="id_profesor">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="100" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c4a" mandatory="false" name="contenido">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="100" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c49" mandatory="false" name="evaluacion">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="100" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7c48" mandatory="false" name="libros">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="10" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7b73" mandatory="true" name="id">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-7c55" name="PK_ASIGNATURA">
+<primary-key-column name="id_asignatura"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="25660846:1428f06e233:-7aab" name="FK_ASIGNATURA_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_PROFESORES" referenced-table="PROFESORES" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_profesor" referenced-key-column-name="id_profesor"/>
+</foreign-key>
+<foreign-key id="25660846:1428f06e233:-7a87" name="FK_ASIGNATURA_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CURSO" referenced-table="CURSO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_curso" referenced-key-column-name="id_curso"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="25660846:1428f06e233:-7a78" name="MATRICULA">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7a74" mandatory="true" name="id_matricula">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7a71" mandatory="false" name="id_alumno">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7a6e" mandatory="false" name="id_asignatura">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-7a77" name="PK_MATRICULA">
+<primary-key-column name="id_matricula"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="25660846:1428f06e233:-7a28" name="FK_MATRICULA_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ALUMNO" referenced-table="ALUMNO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_alumno" referenced-key-column-name="id_alumno"/>
+</foreign-key>
+<foreign-key id="25660846:1428f06e233:-79ef" name="FK_MATRICULA_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ASIGNATURA" referenced-table="ASIGNATURA" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_asignatura" referenced-key-column-name="id_asignatura"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="25660846:1428f06e233:-79e7" name="NOTA">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-79e3" mandatory="true" name="id_nota">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-79e2" mandatory="false" name="id_matricula">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-79e1" mandatory="false" name="id_concepto">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-79e0" mandatory="false" name="nota">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-79df" mandatory="false" name="fecha">
+<data-type name="DATE" selected-variant-pattern="DATE"/>
+</column>
+<column auto-increment="false" column-size="100" decimal-digits="0" default-value="" id="25660846:1428f06e233:-79de" mandatory="false" name="observaciones">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-779f" mandatory="false" name="notificado">
+<data-type name="BOOL" selected-variant-pattern="BOOL"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-79e6" name="PK_NOTA">
+<primary-key-column name="id_nota"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="25660846:1428f06e233:-79cf" name="FK_NOTA_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_MATRICULA" referenced-table="MATRICULA" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_matricula" referenced-key-column-name="id_matricula"/>
+</foreign-key>
+<foreign-key id="25660846:1428f06e233:-798f" name="FK_NOTA_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_CONCEPTO" referenced-table="CONCEPTO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_concepto" referenced-key-column-name="id_concepto"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="25660846:1428f06e233:-79af" name="CONCEPTO">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-79ab" mandatory="true" name="id_concepto">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="25" decimal-digits="0" default-value="" id="25660846:1428f06e233:-79aa" mandatory="false" name="concepto">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-79ae" name="PK_CONCEPTO">
+<primary-key-column name="id_concepto"/>
+</primary-key>
+</table>
+<table id="25660846:1428f06e233:-7970" name="INCIDENCIA">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-795a" mandatory="true" name="id_incidencia">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7957" mandatory="false" name="id_alumno">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7954" mandatory="false" name="id_asignatura">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7951" mandatory="false" name="fecha">
+<data-type name="DATE" selected-variant-pattern="DATE"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7932" mandatory="false" name="tipo">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="100" decimal-digits="0" default-value="" id="25660846:1428f06e233:-792f" mandatory="false" name="contenido">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7799" mandatory="false" name="leido">
+<data-type name="BOOL" selected-variant-pattern="BOOL"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-796f" name="PK_INCIDENCIA">
+<primary-key-column name="id_incidencia"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="25660846:1428f06e233:-790b" name="FK_INCIDENCIA_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ALUMNO" referenced-table="ALUMNO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_alumno" referenced-key-column-name="id_alumno"/>
+</foreign-key>
+<foreign-key id="25660846:1428f06e233:-7865" name="FK_INCIDENCIA_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ASIGNATURA" referenced-table="ASIGNATURA" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_asignatura" referenced-key-column-name="id_asignatura"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="25660846:1428f06e233:-794a" name="TAREA">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7948" mandatory="true" name="id_itarea">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7947" mandatory="false" name="id_alumno">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7946" mandatory="false" name="id_asignatura">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7945" mandatory="false" name="fecha">
+<data-type name="DATE" selected-variant-pattern="DATE"/>
+</column>
+<column auto-increment="false" column-size="50" decimal-digits="0" default-value="" id="25660846:1428f06e233:-77a6" mandatory="false" name="concepto">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="100" decimal-digits="0" default-value="" id="25660846:1428f06e233:-77a5" mandatory="false" name="observaciones">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-779c" mandatory="false" name="leido">
+<data-type name="BOOL" selected-variant-pattern="BOOL"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-7944" name="PK_TAREA">
+<primary-key-column name="id_itarea"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="25660846:1428f06e233:-7815" name="FK_TAREA_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ALUMNO" referenced-table="ALUMNO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_alumno" referenced-key-column-name="id_alumno"/>
+</foreign-key>
+<foreign-key id="25660846:1428f06e233:-7806" name="FK_TAREA_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ASIGNATURA" referenced-table="ASIGNATURA" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_asignatura" referenced-key-column-name="id_asignatura"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+<table id="25660846:1428f06e233:-7943" name="EXAMEN">
+<column-list>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7941" mandatory="true" name="id_examen">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7940" mandatory="false" name="id_alumno">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-793f" mandatory="false" name="id_asignatura">
+<data-type name="INT" selected-variant-pattern="INT"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-793e" mandatory="false" name="fecha">
+<data-type name="DATE" selected-variant-pattern="DATE"/>
+</column>
+<column auto-increment="false" column-size="60" decimal-digits="0" default-value="" id="25660846:1428f06e233:-77a2" mandatory="false" name="contenido">
+<data-type name="CHAR" selected-variant-pattern="CHAR(%n)"/>
+</column>
+<column auto-increment="false" column-size="0" decimal-digits="0" default-value="" id="25660846:1428f06e233:-7796" mandatory="false" name="leido">
+<data-type name="BOOL" selected-variant-pattern="BOOL"/>
+</column>
+</column-list>
+<primary-key id="25660846:1428f06e233:-793d" name="PK_EXAMEN">
+<primary-key-column name="id_examen"/>
+</primary-key>
+<foreign-key-list>
+<foreign-key id="25660846:1428f06e233:-77f5" name="FK_EXAMEN_1" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ALUMNO" referenced-table="ALUMNO" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_alumno" referenced-key-column-name="id_alumno"/>
+</foreign-key>
+<foreign-key id="25660846:1428f06e233:-77e6" name="FK_EXAMEN_2" on-delete="UNSPECIFIED" on-update="UNSPECIFIED" referenced-key="PK_ASIGNATURA" referenced-table="ASIGNATURA" referenced-table-schema="DEFAULT_SCHEMA" source-entity-role="" source-multiplicity="0..*" source-relationship-type="" target-entity-role="" target-multiplicity="1" target-relationship-type="">
+<foreign-key-column column-name="id_asignatura" referenced-key-column-name="id_asignatura"/>
+</foreign-key>
+</foreign-key-list>
+</table>
+</table-list>
+</schema>
+</schema-list>
+</database-model>
+<diagram>
+<table-figure height="100" refid="25660846:1428f06e233:-7fea" width="142" x="911" y="25"/>
+<table-figure height="173" refid="25660846:1428f06e233:-7f1e" width="180" x="904" y="279"/>
+<table-figure height="141" refid="25660846:1428f06e233:-7e86" width="161" x="580" y="16"/>
+<table-figure height="93" refid="25660846:1428f06e233:-7d22" width="143" x="705" y="230"/>
+<table-figure height="143" refid="25660846:1428f06e233:-7c8b" width="152" x="954" y="655"/>
+<table-figure height="202" refid="25660846:1428f06e233:-7c56" width="175" x="576" y="579"/>
+<table-figure height="133" refid="25660846:1428f06e233:-7a78" width="119" x="34" y="193"/>
+<table-figure height="130" refid="25660846:1428f06e233:-79e7" width="137" x="3"/>
+<table-figure height="60" refid="25660846:1428f06e233:-79af" width="150" x="306" y="2"/>
+<table-figure height="158" refid="25660846:1428f06e233:-7970" width="130" x="163" y="320"/>
+<table-figure height="161" refid="25660846:1428f06e233:-794a" width="124" x="32" y="506"/>
+<table-figure height="163" refid="25660846:1428f06e233:-7943" width="124" x="182" y="633"/>
+</diagram>
+</clay-model>

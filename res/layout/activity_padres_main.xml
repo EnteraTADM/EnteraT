@@ -1,0 +1,83 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ProfesorMainActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/padreTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_alumno"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/alumnoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_alumno"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <TextView
+            android:id="@+id/cursoTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_alumno"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/deuresButton"
+            style="@style/boton_padres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="tareasClick"
+            android:text="@string/txt_tarea" />
+
+        <Button
+            android:id="@+id/controlButton"
+            style="@style/boton_padres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="examenesClick"
+            android:text="@string/txt_examenes" />
+
+        <Button
+            android:id="@+id/infoButton"
+            style="@style/boton_padres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="anuncionsClick"
+            android:text="@string/bt_anuncios" />
+
+        <Button
+            android:id="@+id/asignaturasButton"
+            style="@style/boton_padres"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="incidenciasClick"
+            android:text="@string/bt_incidencias" />
+
+        <Button
+            android:id="@+id/logOutButton"
+            style="@style/boton_aplicacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="18dp"
+            android:alpha="0.75"
+            android:gravity="center_vertical"
+            android:onClick="logOutClick"
+            android:text="@string/bt_logout" />
+    </LinearLayout>
+
+</LinearLayout>

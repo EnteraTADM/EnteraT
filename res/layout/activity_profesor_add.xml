@@ -1,0 +1,124 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ProfesorExamsActivity" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="437dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/profesorTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_profesor"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <TextView
+                android:id="@+id/nombre_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="@string/txt_nombre_profesor" />
+
+            <TextView
+                android:id="@+id/Type_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_pregunta_tarea"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/Tipo_Spinner_t"
+                style="@style/spinner_aplicacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.75"
+                android:entries="@array/array_insertar" />
+
+            <TextView
+                android:id="@+id/asignatura_TextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_asignaturas"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <Spinner
+                android:id="@+id/asignatura_Spinner_t"
+                style="@style/spinner_aplicacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:alpha="0.75" />
+
+            <TextView
+                android:id="@+id/dataTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_fecha"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <DatePicker
+                android:id="@+id/DatePicker_t"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/deuresTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_contenido"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+            <EditText
+                android:id="@+id/contenido_t"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine" >
+            </EditText>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+                
+                <Button
+                android:id="@+id/publicarButton"
+                style="@style/boton_aplicacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:alpha="0.75"
+                android:onClick="publicarClick"
+                android:text="@string/txt_publicar" />
+
+                <Button
+                    android:id="@+id/logOutButton"
+                    style="@style/boton_aplicacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="18dp"
+                    android:alpha="0.75"
+                    android:gravity="center_vertical"
+                    android:onClick="logOutClick"
+                    android:text="@string/bt_logout" />
+
+            </RelativeLayout>
+
+            
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

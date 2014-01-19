@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <style name="boton_aplicacion">                
+       <item name="android:background">@drawable/shape_button_publicar</item>
+       <item name="android:textSize">@dimen/bini15</item>
+       <item name="android:gravity">center_vertical|center_horizontal</item>
+       <item name="android:layout_marginTop">18dp</item>
+       <item name="android:layout_width">120dp</item>
+       <item name="android:layout_height">70dp</item>
+       <item name="android:typeface">sans</item>
+       <item name="android:shadowColor">#FF808080</item>
+       <item name="android:shadowRadius">1.5</item>
+       <item name="android:shadowDx">1</item>
+       <item name="android:shadowDy">2</item>       
+    </style>    
+    
+    <style name="boton_padres">                
+       <item name="android:background">@drawable/shape_button_padres</item>
+       <item name="android:textSize">@dimen/bini15</item>
+       <item name="android:gravity">center_vertical|center_horizontal</item>
+       <item name="android:layout_marginTop">18dp</item>
+       <item name="android:layout_width">120dp</item>
+       <item name="android:layout_height">70dp</item>
+       <item name="android:typeface">sans</item>
+       <item name="android:shadowColor">#0099CC</item>
+       <item name="android:shadowRadius">1.5</item>
+       <item name="android:shadowDx">1</item>
+       <item name="android:shadowDy">2</item>       
+    </style> 
+        
+    <style name="spinner_aplicacion">
+       <item name="android:background">@drawable/shape_spinner</item>
+       <item name="android:textSize">@dimen/bini15</item>
+    </style>
+    
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.    -->
+    
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+
+        <item name="android:windowBackground">@drawable/app_background</item>
+    </style>
+
+</resources>
