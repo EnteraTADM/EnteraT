@@ -51,7 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:onClick="asignaturasClick"
-                    android:text="@string/txt_asignaturas" />
+                    android:text="@string/bt_asignaturas" />
 
                 <Button
                     android:id="@+id/tareasButton"

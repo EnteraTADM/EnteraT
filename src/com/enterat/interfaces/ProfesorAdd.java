@@ -43,7 +43,7 @@ public class ProfesorAdd extends Activity{
 		String[] array_spinner = asignaturas.split(",");
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array_spinner);
 		sp2.setAdapter(adapter);
-		sp2.setSelection(1);
+		sp2.setSelection(0);
 	}
 
 	@Override
@@ -93,8 +93,8 @@ public class ProfesorAdd extends Activity{
 	}
 		
 	@Override
-	protected void onPause() {
-		super.onPause();
+	protected void onStop() {
+		super.onStop();
 		
 		SharedPreferences pref = getSharedPreferences("guardado_profadd",Context.MODE_PRIVATE);
 		SharedPreferences.Editor editar=pref.edit( );
@@ -120,7 +120,6 @@ public class ProfesorAdd extends Activity{
 		editar.putInt("posicionsp",posicion);
 
 		editar.commit( );
-
 	}
 	
 	@Override
@@ -137,14 +136,14 @@ public class ProfesorAdd extends Activity{
 
 		// Recuperamos la posición de los spinner
 		Spinner sp=(Spinner) findViewById(R.id.asignatura_Spinner_t);
-		Integer posicion = prefe.getInt("posicionsp",1);
-		sp.setSelection(posicion);
+		Integer posicion = prefe.getInt("posicionsp", 0);
+		sp.setSelection(posicion);		
 				
 		// Recuperamos fecha del date-picker
-		Integer year=prefe.getInt("año",0);
-		Integer month=prefe.getInt("mes",0);
-		Integer day=prefe.getInt("dia",0);
-		DatePicker date=(DatePicker) findViewById(R.id.DatePicker_t);
+		Integer year    = prefe.getInt("año", 0);
+		Integer month   = prefe.getInt("mes", 0);
+		Integer day     = prefe.getInt("dia", 0);
+		DatePicker date = (DatePicker) findViewById(R.id.DatePicker_t);
 		// si la fecha esta a cero es que no hemos guardado nada y se quedara la que sale por defecto
 		if(year==0){
 		}

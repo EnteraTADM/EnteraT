@@ -14,7 +14,7 @@
     <string name="bt_calendario">Calendario</string>
     <string name="bt_info">Información</string>
     <string name="bt_asignatura">Asignatura</string>
-    <string name="bt_asignaturas">Asignaturas</string>
+    <string name="bt_asignaturas">Por asignaturas...</string>
     <string name="bt_tarea">Tarea</string>
     <string name="bt_tareas">Tareas</string>
     <string name="bt_incidencias">Incidencias</string>
@@ -40,7 +40,7 @@
     <string name="txt_examenes">Exámenes</string>
     <string name="txt_anuncios">Anuncios</string>
     <string name="txt_incidencias">Incidencias</string>
-    <string name="txt_asignaturas">Por Asignaturas...</string>
+    <string name="txt_asignatura">Asignatura</string>
     <string name="txt_contenido">Contenido</string>
     <string name="txt_publicar">Publicar</string>
     <string name="txt_user">Usuario: </string>
