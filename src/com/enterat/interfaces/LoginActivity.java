@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +24,7 @@ public class LoginActivity extends Activity {
 	private String apellidos   = "";
 	private String nombrePadre		= "";
 	private String apellidosPadre	= "";
+	private int idAlumno		  	= 0;
 	private String nombreAlumno		= "";
 	private String apellidosAlumno	= "";
 	private int cursoAlumno			= 0;
@@ -69,9 +69,6 @@ public class LoginActivity extends Activity {
 		// Comprobar que hay conexion a INTERNET !!!
 		if (Conexion.isConnected(LoginActivity.this)) {
 			
-			//Recuperar datos del Login
-			//Usuario user = recuperarPreferenciasLogIn();
-			
 			TextView textUser = (TextView) findViewById(R.id.userEditText);
 			TextView textPass = (TextView) findViewById(R.id.passEditText);
 
@@ -86,7 +83,7 @@ public class LoginActivity extends Activity {
 			task.execute();
 			
 		} else {
-			// Mostrar error de conexi�n
+			// Mostrar error de conexion
 			showNoConnectionWarning();
 		}
 	}
@@ -115,6 +112,7 @@ public class LoginActivity extends Activity {
 		
 		nombrePadre 	= preferences.getString("nombrePadre", "");
 		apellidosPadre	= preferences.getString("apellidosPadre", "");
+		idAlumno		= preferences.getInt("id_alumno", 0);
 		nombreAlumno	= preferences.getString("nombreAlumno", "");
 		apellidosAlumno = preferences.getString("apellidosAlumno", "");
 		cursoAlumno		= preferences.getInt("cursoAlumno", 0);
@@ -141,6 +139,7 @@ public class LoginActivity extends Activity {
 		
 		editor.putString("nombrePadre", nombrePadre);
 		editor.putString("apellidosPadre", apellidosPadre);
+		editor.putInt("id_alumno", idAlumno);
 		editor.putString("nombreAlumno", nombreAlumno);
 		editor.putString("apellidosAlumno", apellidosAlumno);
 		editor.putInt("cursoAlumno", cursoAlumno);
@@ -196,6 +195,7 @@ public class LoginActivity extends Activity {
 						
 						nombrePadre		= padre.getNombre();
 						apellidosPadre	= padre.getApellidos();
+						idAlumno		= padre.getAlumno().getId_alumno();
 						nombreAlumno	= padre.getAlumno().getNombre();
 						apellidosAlumno	= padre.getAlumno().getApellidos();
 						cursoAlumno		= padre.getAlumno().getCurso().getId_curso();

@@ -71,7 +71,7 @@ public class Padre {
 	public void obtenerDatosPadreAlumnoPorIdUsuario(int idUsuario){
 				
 		//		
-		String sql1 = "SELECT p.nombre as nPadre, p.apellidos as aPadre, a.nombre as nAlumno, a.apellidos as aAlumno, a.id_curso FROM USUARIO u, PADRE p, ALUMNO a ";
+		String sql1 = "SELECT p.nombre as nPadre, p.apellidos as aPadre, a.id_alumno as idAlumno, a.nombre as nAlumno, a.apellidos as aAlumno, a.id_curso FROM USUARIO u, PADRE p, ALUMNO a ";
 		String sql2 = "WHERE u.id_usuario = " + idUsuario + " and u.id_usuario = p.id_usuario and p.id_alumno = a.id_alumno";
 		
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
@@ -94,6 +94,10 @@ public class Padre {
 				if (json.has("aPadre"))
 				{
 					this.setApellidos( json.getString("aPadre") );							
+				}
+				if (json.has("idAlumno"))
+				{
+					this.getAlumno().setId_alumno( json.getInt("idAlumno") );							
 				}
 				if (json.has("nAlumno"))
 				{

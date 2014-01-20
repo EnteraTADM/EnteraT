@@ -30,7 +30,7 @@ public class PadresMainActivity extends Activity {
 		alumnoText.setText( "Alumno: " + preferences.getString("nombreAlumno", "") + " " + preferences.getString("apellidosAlumno", "") );
 		
 		TextView cursoText = (TextView)findViewById( R.id.cursoTextView );
-		cursoText.setText( "Curso: " + preferences.getInt("cursoAlumno", 0) );		
+		cursoText.setText( "Curso: " + preferences.getInt("cursoAlumno", 0) + "ºESO" );		
 	}
 
 	@Override

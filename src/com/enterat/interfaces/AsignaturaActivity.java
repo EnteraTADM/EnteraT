@@ -3,11 +3,15 @@ package com.enterat.interfaces;
 import java.util.ArrayList;
 
 import com.enterat.R;
+import com.enterat.bda.Matricula;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TabHost;
 
 public class AsignaturaActivity extends Activity {
@@ -17,16 +21,18 @@ public class AsignaturaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_asignaturas);
 
-		
-		//TODO
 		//Añadir las asignaturas de cada alumno en el spinner
-		//Consulta BDA
-		
+		Matricula matricula = new Matricula();		
+		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);				
+		String asignaturas = matricula.asignaturasMatriculadasPorIdAlumno( preferences.getInt("id_alumno", 0) );		
+		String[] array_spinner = asignaturas.split(",");
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array_spinner);				
+		Spinner sp = (Spinner) findViewById(R.id.asignaturas_spinner);
+		sp.setAdapter(adapter);
+		sp.setSelection(0);		
 		
 		//TODO
-		//Implementar el cambio de pestañas del tabhost
-		
-		
+		//Implementar el cambio de pestañas del tabhost		
 		
 		ArrayAdapter<String> arrayAdapter;
 		ArrayList<String> list = new ArrayList<String>();
