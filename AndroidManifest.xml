@@ -32,6 +32,10 @@
             android:label="@string/txt_app_name" >
         </activity>
         <activity
+            android:name="com.enterat.interfaces.PadresExamenesActivity"
+            android:label="@string/txt_app_name" >
+        </activity>
+        <activity
             android:name="com.enterat.interfaces.PadresTasksActivity"
             android:label="@string/txt_app_name" >
         </activity>

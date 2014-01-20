@@ -87,7 +87,7 @@ public class PadresMainActivity extends Activity {
 	}
 
 	public void examenesClick(View v) {
-		startActivity(new Intent(this, PadresTasksActivity.class));
+		startActivity(new Intent(this, PadresExamenesActivity.class));
 	}
 
 	public void anuncionsClick(View v) {

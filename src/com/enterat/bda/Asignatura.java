@@ -11,7 +11,7 @@ public class Asignatura {
 
 	//Atributos de clase
 	private int id_asignatura;
-	private String asignatrua;
+	private String asignatura;
 	private String codigo;
 	private String descripcion;
 	private Curso curso;
@@ -25,11 +25,11 @@ public class Asignatura {
 	public void setId_asignatura(int id_asignatura) {
 		this.id_asignatura = id_asignatura;
 	}
-	public String getAsignatrua() {
-		return asignatrua;
+	public String getAsignatura() {
+		return asignatura;
 	}
-	public void setAsignatrua(String asignatrua) {
-		this.asignatrua = asignatrua;
+	public void setAsignatura(String asignatura) {
+		this.asignatura = asignatura;
 	}
 	public String getCodigo() {
 		return codigo;
