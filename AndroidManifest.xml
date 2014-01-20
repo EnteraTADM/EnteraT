@@ -9,15 +9,14 @@
         android:targetSdkVersion="18" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <!-- Acceso a Internet -->
-    
-   <application
+
+    <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/txt_app_name"
         android:theme="@style/AppTheme" >
-        
         <activity
             android:name="com.enterat.interfaces.LoginActivity"
             android:label="@string/txt_app_name"
@@ -40,7 +39,10 @@
             android:name="com.enterat.interfaces.ProfesorAdd"
             android:label="@string/txt_app_name" >
         </activity>
-        
+        <activity
+            android:name="com.enterat.interfaces.AsignaturaActivity"
+            android:label="@string/txt_app_name" >
+        </activity>
     </application>
 
 </manifest>

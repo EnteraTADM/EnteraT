@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -44,6 +46,52 @@ public class ProfesorAdd extends Activity{
 		sp2.setSelection(1);
 	}
 
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_cerrar_sesion, menu);
+        return true;
+    }
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+        
+            case R.id.cerrar_sesion: {
+                cerrarSesion();
+                break;
+            }
+
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+	
+	//Salir
+	private void cerrarSesion() {
+
+		// Borra las SharedPreferences
+		SharedPreferences preferences = getSharedPreferences("LogIn", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor = preferences.edit();
+		editor.clear();
+		editor.commit();
+
+		// Borra las SharedPreferences
+		SharedPreferences preferences2 = getSharedPreferences("guardado_profadd", Context.MODE_PRIVATE);
+		SharedPreferences.Editor editor2 = preferences2.edit();
+		editor2.clear();
+		editor2.commit();				
+
+		//Ir al menú principal
+		Intent intent = new Intent(this, LoginActivity.class);
+		startActivity(intent);
+
+		//Se destruye esta actividad
+		finish();
+	}
+		
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -103,30 +151,7 @@ public class ProfesorAdd extends Activity{
 		else{
 			date.updateDate(year,month,day);
 		}
-	}
-
-	//Salir
-	public void logOutClick(View v) {
-		
-		// Borra las SharedPreferences
-		SharedPreferences preferences = getSharedPreferences("LogIn", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = preferences.edit();
-		editor.clear();
-		editor.commit();
-		
-		// Borra las SharedPreferences
-		SharedPreferences preferences2 = getSharedPreferences("guardado_profadd", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor2 = preferences2.edit();
-		editor2.clear();
-		editor2.commit();				
-				
-		//Ir al menú principal
-		Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        
-        //Se destruye esta actividad
-		finish();
-	}
+	}	
 	
 	//Boton publicar	
 	public void publicarClick(View v) {

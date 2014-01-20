@@ -87,37 +87,16 @@
                 android:inputType="textMultiLine" >
             </EditText>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-                
-                <Button
+            <Button
                 android:id="@+id/publicarButton"
                 style="@style/boton_aplicacion"
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
                 android:layout_marginBottom="32dp"
                 android:alpha="0.75"
                 android:onClick="publicarClick"
                 android:text="@string/txt_publicar" />
-
-                <Button
-                    android:id="@+id/logOutButton"
-                    style="@style/boton_aplicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="18dp"
-                    android:alpha="0.75"
-                    android:gravity="center_vertical"
-                    android:onClick="logOutClick"
-                    android:text="@string/bt_logout" />
-
-            </RelativeLayout>
-
-            
-
         </LinearLayout>
     </ScrollView>
 

@@ -35,49 +35,57 @@
             android:text="@string/txt_alumno"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <Button
-            android:id="@+id/deuresButton"
-            style="@style/boton_padres"
+        <ScrollView
+            android:id="@+id/scrollView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="tareasClick"
-            android:text="@string/txt_tarea" />
+            android:layout_height="wrap_content" >
 
-        <Button
-            android:id="@+id/controlButton"
-            style="@style/boton_padres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="examenesClick"
-            android:text="@string/txt_examenes" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/infoButton"
-            style="@style/boton_padres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="anuncionsClick"
-            android:text="@string/bt_anuncios" />
+                <Button
+                    android:id="@+id/asignaturasButton"
+                    style="@style/boton_padres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="asignaturasClick"
+                    android:text="@string/txt_asignaturas" />
 
-        <Button
-            android:id="@+id/asignaturasButton"
-            style="@style/boton_padres"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="incidenciasClick"
-            android:text="@string/bt_incidencias" />
+                <Button
+                    android:id="@+id/tareasButton"
+                    style="@style/boton_padres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="tareasClick"
+                    android:text="@string/txt_tareas" />
 
-        <Button
-            android:id="@+id/logOutButton"
-            style="@style/boton_aplicacion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|center_vertical"
-            android:layout_marginRight="18dp"
-            android:alpha="0.75"
-            android:gravity="center_vertical"
-            android:onClick="logOutClick"
-            android:text="@string/bt_logout" />
+                <Button
+                    android:id="@+id/examenesButton"
+                    style="@style/boton_padres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="examenesClick"
+                    android:text="@string/txt_examenes" />
+
+                <Button
+                    android:id="@+id/anunciosButton"
+                    style="@style/boton_padres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="anuncionsClick"
+                    android:text="@string/bt_anuncios" />
+
+                <Button
+                    android:id="@+id/incidenciasButton"
+                    style="@style/boton_padres"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:onClick="incidenciasClick"
+                    android:text="@string/bt_incidencias" />
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
 
 </LinearLayout>

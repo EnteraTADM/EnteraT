@@ -8,61 +8,61 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity" >
 
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
-        <ScrollView
-            android:id="@+id/scrollView1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical" >
-                
-                <TextView
-            android:id="@+id/userTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/activity_horizontal_margin"
-            android:text="@string/txt_user" />
+            <TextView
+                android:id="@+id/userTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:text="@string/txt_user" />
 
-        <EditText
-            android:id="@+id/userEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:ems="10"
-            android:inputType="textPersonName" >
+            <EditText
+                android:id="@+id/userEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:ems="10"
+                android:inputType="textPersonName" >
 
-            <requestFocus android:layout_width="match_parent" />
+                <requestFocus android:layout_width="match_parent" />
+            </EditText>
 
-        </EditText>
+            <TextView
+                android:id="@+id/passwordTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/activity_horizontal_margin"
+                android:text="@string/txt_pass" />
 
-        <TextView
-            android:id="@+id/passwordTextView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingTop="@dimen/activity_horizontal_margin"
-            android:text="@string/txt_pass" />
+            <EditText
+                android:id="@+id/passEditText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:paddingBottom="@dimen/activity_horizontal_margin" />
 
-        <EditText
-            android:id="@+id/passEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:paddingBottom="@dimen/activity_horizontal_margin" />
-
-        <Button
-            android:id="@+id/b_login"
-            style="@style/boton_aplicacion"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"            
-            android:onClick="loginClick"
-            android:text="@string/bt_login" />
-        
-            </LinearLayout>
-        </ScrollView>
+            <Button
+                android:id="@+id/b_login"
+                style="@style/boton_aplicacion"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:layout_marginBottom="32dp"
+                android:alpha="0.75"
+                android:onClick="loginClick"
+                android:text="@string/bt_login" />
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

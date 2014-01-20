@@ -8,9 +8,12 @@ import com.enterat.util.MyListAdapter;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class PadresTasksActivity extends Activity {
@@ -100,4 +103,33 @@ public class PadresTasksActivity extends Activity {
 		registerForContextMenu(list);		
 	}
 
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_ordenar, menu);
+        return true;
+    }
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+        
+            case R.id.menu_ordenar: {
+            	ordenarPorFecha();
+                break;
+            }
+
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+	
+	private void ordenarPorFecha(){
+	
+		Toast.makeText(getApplicationContext(),"Ordenado correctamente", Toast.LENGTH_LONG).show();
+		
+	}
+	
 }

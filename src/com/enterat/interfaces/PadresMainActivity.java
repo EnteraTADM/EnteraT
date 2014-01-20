@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -28,11 +30,34 @@ public class PadresMainActivity extends Activity {
 		alumnoText.setText( "Alumno: " + preferences.getString("nombreAlumno", "") + " " + preferences.getString("apellidosAlumno", "") );
 		
 		TextView cursoText = (TextView)findViewById( R.id.cursoTextView );
-		cursoText.setText( " Curso: " + preferences.getInt("cursoAlumno", 0) );		
+		cursoText.setText( "Curso: " + preferences.getInt("cursoAlumno", 0) );		
 	}
 
+	@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.menu_cerrar_sesion, menu);
+        return true;
+    }
+	
+	@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+        
+            case R.id.cerrar_sesion: {
+                cerrarSesion();
+                break;
+            }
+
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+	
 	//Salir
-	public void logOutClick(View v) {
+	private void cerrarSesion() {
 		
 		SharedPreferences preferences = getSharedPreferences("LogIn", Context.MODE_PRIVATE);
 		
@@ -49,8 +74,13 @@ public class PadresMainActivity extends Activity {
         
         //Se destruye esta actividad
       	finish();
+	}		
+	
+	//	
+	public void asignaturasClick(View v) {
+		startActivity(new Intent(this, AsignaturaActivity.class));
 	}
-		
+	
 	//	
 	public void tareasClick(View v) {
 		startActivity(new Intent(this, PadresTasksActivity.class));
