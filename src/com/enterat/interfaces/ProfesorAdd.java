@@ -84,7 +84,7 @@ public class ProfesorAdd extends Activity{
 		editor2.clear();
 		editor2.commit();				
 
-		//Ir al menú principal
+		//Ir al menï¿½ principal
 		Intent intent = new Intent(this, LoginActivity.class);
 		startActivity(intent);
 
@@ -110,11 +110,11 @@ public class ProfesorAdd extends Activity{
 		Integer month=date.getMonth();
 		Integer day=date.getDayOfMonth();
 
-		editar.putInt("año", year);
+		editar.putInt("aÃ±o", year);
 		editar.putInt("mes", month);
 		editar.putInt("dia", day);
 
-		//Guardamos la posición de los spinner asignaturas
+		//Guardamos la posiciï¿½n de los spinner asignaturas
 		Spinner sp=(Spinner) findViewById(R.id.asignatura_Spinner_t);
 		Integer posicion = sp.getPositionForView(sp);
 		editar.putInt("posicionsp",posicion);
@@ -134,13 +134,13 @@ public class ProfesorAdd extends Activity{
 		EditText contenido = (EditText)findViewById(R.id.contenido_t);
 		contenido.setText(text_contenido);
 
-		// Recuperamos la posición de los spinner
+		// Recuperamos la posiciï¿½n de los spinner
 		Spinner sp=(Spinner) findViewById(R.id.asignatura_Spinner_t);
 		Integer posicion = prefe.getInt("posicionsp", 0);
 		sp.setSelection(posicion);		
 				
 		// Recuperamos fecha del date-picker
-		Integer year    = prefe.getInt("año", 0);
+		Integer year    = prefe.getInt("aÃ±o", 0);
 		Integer month   = prefe.getInt("mes", 0);
 		Integer day     = prefe.getInt("dia", 0);
 		DatePicker date = (DatePicker) findViewById(R.id.DatePicker_t);
@@ -177,7 +177,7 @@ public class ProfesorAdd extends Activity{
 		DatePicker fechaPicker = (DatePicker) findViewById(R.id.DatePicker_t);								
 
 		Integer dobYear  = fechaPicker.getYear();
-		Integer dobMonth = fechaPicker.getMonth() + 1; //haciendo pruebas siempre inserta el mes anterior, por eso sumo 1 ¿?¿?¿?
+		Integer dobMonth = fechaPicker.getMonth() + 1; //haciendo pruebas siempre inserta el mes anterior, por eso sumo 1 ï¿½?ï¿½?ï¿½?
 		Integer dobDate  = fechaPicker.getDayOfMonth();
 
 		StringBuilder sb = new StringBuilder();
@@ -191,7 +191,7 @@ public class ProfesorAdd extends Activity{
 		String fecha = sb.toString();		        
 
 		//Recuperar las observaciones 
-		//TODO crear campo observaciones ??? en la bda está el campo...
+		//TODO crear campo observaciones ??? en la bda estï¿½ el campo...
 		String observaciones = "";
 
 		//Recuperar el tipo de lo que queremos insertar

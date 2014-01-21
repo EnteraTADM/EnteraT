@@ -40,6 +40,14 @@
             android:label="@string/txt_app_name" >
         </activity>
         <activity
+            android:name="com.enterat.interfaces.PadresAnunciosActivity"
+            android:label="@string/txt_app_name" >
+        </activity>
+        <activity
+            android:name="com.enterat.interfaces.PadresIncidenciasActivity"
+            android:label="@string/txt_app_name" >
+        </activity>
+        <activity
             android:name="com.enterat.interfaces.ProfesorAdd"
             android:label="@string/txt_app_name" >
         </activity>
