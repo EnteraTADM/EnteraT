@@ -28,6 +28,7 @@ public class LoginActivity extends Activity {
 	private String nombreAlumno		= "";
 	private String apellidosAlumno	= "";
 	private int cursoAlumno			= 0;
+	private String idGcm = "";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,7 @@ public class LoginActivity extends Activity {
 		user.setUser(preferences.getString("usuario", ""));
 		user.setPassword(preferences.getString("password", ""));
 		user.setTipo(preferences.getInt("tipo", 0));
+		user.setId_gcm(preferences.getString("idGcm", ""));
 		
 		asignaturas = preferences.getString("asignaturas", "");
 		nombre		= preferences.getString("nombre", "");
@@ -116,7 +118,8 @@ public class LoginActivity extends Activity {
 		nombreAlumno	= preferences.getString("nombreAlumno", "");
 		apellidosAlumno = preferences.getString("apellidosAlumno", "");
 		cursoAlumno		= preferences.getInt("cursoAlumno", 0);
-
+		idGcm = preferences.getString("idGcm", "");
+		
 		return user;
 	}
 
@@ -143,7 +146,8 @@ public class LoginActivity extends Activity {
 		editor.putString("nombreAlumno", nombreAlumno);
 		editor.putString("apellidosAlumno", apellidosAlumno);
 		editor.putInt("cursoAlumno", cursoAlumno);
-
+		editor.putString("idGcm", idGcm);
+		
 		editor.commit();
 	}
 	
@@ -178,11 +182,11 @@ public class LoginActivity extends Activity {
 					Imparte imparte = new Imparte();
 					asignaturas = imparte.queImparteProfesorPorIdUsuario( usuario.getIdUsuario() );
 					
-					//..así como su nombre y apellidos
+					//..asï¿½ como su nombre y apellidos
 					nombre    = imparte.getProfesor().getNombre();
 					apellidos = imparte.getProfesor().getApellidos();
 					
-					//...mostrar menú de Profesor...
+					//...mostrar menï¿½ de Profesor...
 					Intent intent = new Intent(context, ProfesorAdd.class);
 			        startActivity(intent);
 				}
@@ -199,8 +203,8 @@ public class LoginActivity extends Activity {
 						nombreAlumno	= padre.getAlumno().getNombre();
 						apellidosAlumno	= padre.getAlumno().getApellidos();
 						cursoAlumno		= padre.getAlumno().getCurso().getId_curso();
-						
-						//...o mostrar menú de Padre
+						idGcm			= padre.getUsuario().getId_gcm();
+						//...o mostrar menï¿½ de Padre
 						Intent intent = new Intent(context, PadresMainActivity.class);
 				        startActivity(intent);
 					}

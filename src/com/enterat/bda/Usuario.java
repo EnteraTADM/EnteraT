@@ -21,6 +21,7 @@ public class Usuario {
 	private String password = "";
 	private int tipo;
 	private Date fecha;
+	private String id_gcm;
 	
 	//
 	public int getIdUsuario() {
@@ -54,6 +55,13 @@ public class Usuario {
 		this.fecha = fecha;
 	}
 
+	public String getId_gcm() {
+		return id_gcm;
+	}
+	public void setId_gcm(String id_gcm) {
+		this.id_gcm = id_gcm;
+	}
+	
 	//Funcion para identificarse al abrir la aplicacion
 	public static Usuario identificarse(String usuario, String clave)
 	{
