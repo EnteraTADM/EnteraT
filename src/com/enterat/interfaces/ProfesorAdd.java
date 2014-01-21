@@ -2,17 +2,13 @@ package com.enterat.interfaces;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.enterat.R;
@@ -31,65 +27,15 @@ public class ProfesorAdd extends Activity{
 
 		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.activity_profesor_add);
-		
-		//Recuperar nombre y apellidos del profesor
-		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);		
-		TextView nombreText = (TextView)findViewById( R.id.nombre_t );
-		nombreText.setText( " " + preferences.getString("nombre", "") + " " + preferences.getString("apellidos", "") );
 				
 		//Recuperar asignaturas que imparte el profesor
+		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);
 		Spinner sp2 = (Spinner) findViewById(R.id.asignatura_Spinner_t);		
 		String asignaturas = preferences.getString("asignaturas", "");
 		String[] array_spinner = asignaturas.split(",");
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array_spinner);
 		sp2.setAdapter(adapter);
 		sp2.setSelection(0);
-	}
-
-	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.menu_cerrar_sesion, menu);
-        return true;
-    }
-	
-	@Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        switch (item.getItemId()) {
-        
-            case R.id.cerrar_sesion: {
-                cerrarSesion();
-                break;
-            }
-
-            default:
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-	
-	//Salir
-	private void cerrarSesion() {
-
-		// Borra las SharedPreferences
-		SharedPreferences preferences = getSharedPreferences("LogIn", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = preferences.edit();
-		editor.clear();
-		editor.commit();
-
-		// Borra las SharedPreferences
-		SharedPreferences preferences2 = getSharedPreferences("guardado_profadd", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor2 = preferences2.edit();
-		editor2.clear();
-		editor2.commit();				
-
-		//Ir al men� principal
-		Intent intent = new Intent(this, LoginActivity.class);
-		startActivity(intent);
-
-		//Se destruye esta actividad
-		finish();
 	}
 		
 	@Override

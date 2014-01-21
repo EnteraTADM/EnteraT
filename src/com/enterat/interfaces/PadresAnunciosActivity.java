@@ -40,7 +40,7 @@ public class PadresAnunciosActivity extends Activity {
 			anuncio = listaAnuncios.get(i);
 			
 			item = new HashMap<String, Object>();		
-			item.put("Icon", android.R.drawable.ic_menu_edit);
+			item.put("Icon", android.R.drawable.ic_menu_my_calendar);
 			item.put("Title", anuncio.getAsignatura().getAsignatura());
 			item.put("Date", anuncio.getFecha());
 			item.put("Description", anuncio.getContenido());

@@ -40,7 +40,7 @@ public class PadresTasksActivity extends Activity {
 			tarea = listaTareas.get(i);
 			
 			item = new HashMap<String, Object>();		
-			item.put("Icon", android.R.drawable.ic_menu_edit);
+			item.put("Icon", android.R.drawable.ic_menu_agenda);
 			item.put("Title", tarea.getAsignatura().getAsignatura());
 			item.put("Date", tarea.getFecha());
 			item.put("Description", tarea.getContenido());

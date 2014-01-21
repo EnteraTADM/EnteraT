@@ -69,7 +69,6 @@
         <item>Incidencia</item>
         <item>Examen</item>
     </string-array>
-    
     <string-array name="array_cursos">
         <item>Matemáticas 2ndo ESO</item>
         <item>Matemáticas 3ero ESO</item>
@@ -79,7 +78,6 @@
         <item>Informática 3ero ESO</item>
         <item>Informática 4rto ESO</item>
     </string-array>
-    
     <string-array name="array_asignaturas">
         <item>Matemáticas</item>
         <item>Valenciano</item>

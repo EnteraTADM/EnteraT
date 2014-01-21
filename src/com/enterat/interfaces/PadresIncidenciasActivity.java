@@ -40,7 +40,7 @@ public class PadresIncidenciasActivity extends Activity {
 			incidencia = listaIncidencias.get(i);
 			
 			item = new HashMap<String, Object>();		
-			item.put("Icon", android.R.drawable.ic_menu_edit);
+			item.put("Icon", android.R.drawable.ic_menu_info_details);
 			item.put("Title", incidencia.getAsignatura().getAsignatura());
 			item.put("Date", incidencia.getFecha());
 			item.put("Description", incidencia.getContenido());
