@@ -53,37 +53,49 @@
                     android:onClick="asignaturasClick"
                     android:text="@string/bt_asignaturas" />
 
-                <Button
-                    android:id="@+id/tareasButton"
-                    style="@style/boton_padres"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="tareasClick"
-                    android:text="@string/txt_tareas" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal" >
+                    
+                    <Button
+                        android:id="@+id/tareasButton"
+                        style="@style/boton_imagen"
+                        android:background="@drawable/tarea"
+                        android:onClick="tareasClick" />
 
                 <Button
                     android:id="@+id/examenesButton"
-                    style="@style/boton_padres"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="examenesClick"
-                    android:text="@string/txt_examenes" />
+                    style="@style/boton_imagen"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/examen"
+                    android:onClick="examenesClick" />
 
-                <Button
-                    android:id="@+id/anunciosButton"
-                    style="@style/boton_padres"
+                </RelativeLayout>
+
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="anuncionsClick"
-                    android:text="@string/bt_anuncios" />
+                    android:layout_height="126dp"
+                    android:orientation="horizontal" >
+                
+                    <Button
+                        android:id="@+id/anunciosButton"
+                        style="@style/boton_imagen"
+                        android:background="@drawable/anuncios"
+                        android:onClick="anuncionsClick" />
 
                 <Button
                     android:id="@+id/incidenciasButton"
-                    style="@style/boton_padres"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:onClick="incidenciasClick"
-                    android:text="@string/bt_incidencias" />
+                    style="@style/boton_imagen"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/incidencia"
+                    android:onClick="incidenciasClick" />
+
+                </RelativeLayout>
+
+                
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
