@@ -394,6 +394,7 @@ public class LoginActivity extends Activity {
             catch (IOException ex) 
             {
             	Log.d("GCM", "Error registro en GCM:" + ex.getMessage());
+            	actualizarPreferencesAndOpenActivity();
             }
             
             return msg;
