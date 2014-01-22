@@ -273,7 +273,12 @@ public class ProfesorAdd extends Activity{
 
 			super.onPostExecute(result);
 			
-			Toast.makeText(context,"Anuncio publicado correctamente", Toast.LENGTH_LONG).show();
+			if(result.compareTo(0) == 0){
+				Toast.makeText(context, R.string.msg_publicar_anuncio_fail, Toast.LENGTH_LONG).show();
+			}else{
+				Toast.makeText(context, R.string.msg_publicar_anuncio_ok, Toast.LENGTH_LONG).show();
+			}
+			
 		}
 		
 		
