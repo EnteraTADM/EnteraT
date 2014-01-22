@@ -11,7 +11,11 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
 import com.enterat.services.Conexion;
+import com.enterat.services.IConexion;
+import com.enterat.services.WSConection;
 import com.enterat.util.Constantes;
 
 public class Usuario {
@@ -22,8 +26,7 @@ public class Usuario {
 	private int tipo;
 	private Date fecha;
 	private String id_gcm;
-	
-	//
+
 	public int getIdUsuario() {
 		return idUsuario;
 	}
@@ -124,5 +127,46 @@ public class Usuario {
 		
 		//Devolver el usuario identificado
 		return user;
+	}
+	
+	
+	public boolean updateGcmId(Context context, Integer idUser, String idGcm)
+	{
+		String sql1 = "UPDATE USUARIO SET id_gcm = "+idGcm;
+		String sql2 = " WHERE id_usuario = " + idUser;
+		
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("sqlquery1", sql1));
+		pairs.add(new BasicNameValuePair("sqlquery2", sql2));
+				
+		Usuario user = null;
+		
+		
+			//Obtener JSON
+			
+			//json = Conexion.obtenerJsonDelServicio(pairs, "service.executeSQL.php", Constantes.SQL_MODIFICAR, Constantes.SERV_LOGIN);
+//			WSConection wsconect = new WSConection(context, pairs, "service.executeSQL.php", Constantes.SQL_MODIFICAR, Constantes.SERV_LOGIN);
+//			wsconect.execute();
+//			json = wsconect.getJsonresp();
+			
+			//Si se ha obtenido...
+			
+			//Obtener JSON con las asignaturas que imparte
+			WSConection wsconect = new WSConection(context, pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
+				
+				@Override
+				public void getJsonFromWS(JSONObject json) {
+					// TODO Auto-generated method stub
+					setDataJson(json);
+				}
+			});
+			
+			return true;
+	
+	}
+	
+	public boolean setDataJson(JSONObject json){
+		return true;
+
 	}
 }

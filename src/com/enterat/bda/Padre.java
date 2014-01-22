@@ -17,10 +17,15 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.content.Context;
+
+import com.enterat.interfaces.LoginActivity;
 import com.enterat.services.Conexion;
+import com.enterat.services.IConexion;
+import com.enterat.services.WSConection;
 import com.enterat.util.Constantes;
 
-public class Padre {
+public class Padre{
 
 	//Atributos de clase
 	private int id_padre;
@@ -28,6 +33,7 @@ public class Padre {
 	private String apellidos;
 	private Usuario usuario;
 	private Alumno alumno;
+	
 	
 	public Padre() {
 		
@@ -68,7 +74,7 @@ public class Padre {
 		this.alumno = alumno;
 	}
 	
-	public void obtenerDatosPadreAlumnoPorIdUsuario(int idUsuario){
+	public void obtenerDatosPadreAlumnoPorIdUsuario(Context context, int idUsuario){
 				
 		//		
 		String sql1 = "SELECT p.nombre as nPadre, p.apellidos as aPadre, a.id_alumno as idAlumno, a.nombre as nAlumno, a.apellidos as aAlumno, a.id_curso, u.id_gcm as idGcm FROM USUARIO u, PADRE p, ALUMNO a ";
@@ -78,15 +84,30 @@ public class Padre {
 		pairs.add(new BasicNameValuePair("sqlquery1", sql1));
 		pairs.add(new BasicNameValuePair("sqlquery2", sql2));
 				
-		JSONObject json;		
-
-		try {
+		
 			//Obtener JSON con las asignaturas que imparte
-			json = Conexion.obtenerJsonDelServicio(pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE);
+			WSConection wsconect = new WSConection(context, pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
+				
+				@Override
+				public void getJsonFromWS(JSONObject json) {
+					// TODO Auto-generated method stub
+					setDataJson(json);
+					
+				}
+			});
+			//json = wsconect.getJsonresp();
+			
+			//json = Conexion.obtenerJsonDelServicio(pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE);
 
 			//Si se ha obtenido...
-			if(json != null)
-			{				
+				
+	}
+
+	
+	public void setDataJson(JSONObject json){
+		if(json != null)
+		{		
+			try{
 				if (json.has("nPadre"))
 				{
 					this.setNombre( json.getString("nPadre") );							
@@ -115,18 +136,11 @@ public class Padre {
 				{
 					this.getUsuario().setId_gcm( json.getString("idGcm") );							
 				}
+			}catch(JSONException ex){
+				
 			}
+		}
 
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}	
+	}
 	
 }

@@ -1,11 +1,23 @@
 package com.enterat.interfaces;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.enterat.R;
 import com.enterat.bda.Imparte;
 import com.enterat.bda.Padre;
 import com.enterat.bda.Usuario;
 import com.enterat.services.Conexion;
+import com.enterat.services.IConexion;
+import com.enterat.services.WSConection;
 import com.enterat.util.Constantes;
+import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,6 +25,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +42,11 @@ public class LoginActivity extends Activity {
 	private String apellidosAlumno	= "";
 	private int cursoAlumno			= 0;
 	private String idGcm = "";
+	private GoogleCloudMessaging gcm;
+	private final String GCM_SERVICE_ID = "271634907647";
+	private Usuario usuario;
+	private Context context;
+	private Padre padre;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -36,25 +54,27 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);		
 		setContentView(R.layout.activity_login);
 		
+		this.setContext(LoginActivity.this);
+		
 		//Recuperar datos del usuario...
-		Usuario user = recuperarPreferenciasLogIn();
+		usuario = recuperarPreferenciasLogIn();
 		
 		//...si existe
-		if(user.getIdUsuario() != 0){
+		if(usuario.getIdUsuario() != 0){
 		
 			//LogInAsyncTask task = new LogInAsyncTask();
 			//
 			//task.setUser( user.getUser() );
 			//task.setPassword( user.getPassword() );
 			//task.setContext( LoginActivity.this );
-			//task.execute();
+			//task.execute();			
 			
-			if(user.getTipo() == Constantes.PROFESOR){
+			if(usuario.getTipo() == Constantes.PROFESOR){
 				Intent intent = new Intent(this, ProfesorAdd.class);
 		        startActivity(intent);
 			}
 			else{
-				if(user.getTipo() == Constantes.PADRE){
+				if(usuario.getTipo() == Constantes.PADRE){
 					Intent intent = new Intent(this, PadresMainActivity.class);
 			        startActivity(intent);
 				}
@@ -76,11 +96,10 @@ public class LoginActivity extends Activity {
 			final String user = textUser.getText().toString();
 			final String pass = textPass.getText().toString();
 
-			//
 			LogInAsyncTask task = new LogInAsyncTask();
 			task.setUser(user);
 			task.setPassword(pass);
-			task.setContext(LoginActivity.this);
+			//task.setContext(context);
 			task.execute();
 			
 		} else {
@@ -97,16 +116,15 @@ public class LoginActivity extends Activity {
 	//
 	private Usuario recuperarPreferenciasLogIn() {
 
-		//
+		
 		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);
 
-		//
-		Usuario user = new Usuario();
-		user.setIdUsuario(preferences.getInt("idUsuario", 0));
-		user.setUser(preferences.getString("usuario", ""));
-		user.setPassword(preferences.getString("password", ""));
-		user.setTipo(preferences.getInt("tipo", 0));
-		user.setId_gcm(preferences.getString("idGcm", ""));
+		usuario = new Usuario();
+		usuario.setIdUsuario(preferences.getInt("idUsuario", 0));
+		usuario.setUser(preferences.getString("usuario", ""));
+		usuario.setPassword(preferences.getString("password", ""));
+		usuario.setTipo(preferences.getInt("tipo", 0));
+		usuario.setId_gcm(preferences.getString("idGcm", ""));
 		
 		asignaturas = preferences.getString("asignaturas", "");
 		nombre		= preferences.getString("nombre", "");
@@ -120,10 +138,10 @@ public class LoginActivity extends Activity {
 		cursoAlumno		= preferences.getInt("cursoAlumno", 0);
 		idGcm = preferences.getString("idGcm", "");
 		
-		return user;
+		return usuario;
 	}
 
-	//
+	
 	private void guardarPreferenciasLogIn(Usuario user) {
 
 		//
@@ -151,13 +169,24 @@ public class LoginActivity extends Activity {
 		editor.commit();
 	}
 	
+	
+	public Context getContext() {
+		return context;
+	}
+
+	public void setContext(Context context) {
+		this.context = context;
+	}
+
+	
+	
+	
 	// **********************************************************************
 	// TAREA ASINCRONA --> LOG IN
 	// **********************************************************************
 	private class LogInAsyncTask extends AsyncTask<Void, Void, Usuario> {
 
 		private String user, pass;
-		private Context context;
 
 		@Override
 		protected void onPreExecute() {
@@ -189,41 +218,33 @@ public class LoginActivity extends Activity {
 					//...mostrar men� de Profesor...
 					Intent intent = new Intent(context, ProfesorAdd.class);
 			        startActivity(intent);
+			      
+			        //Guardar datos en Preferences
+					guardarPreferenciasLogIn( usuario );
+					
+					//Se destruye esta actividad
+					finish();
 				}
 				else{
 					if(usuario.getTipo() == Constantes.PADRE){
+						TareaObtenerDatosTask tareaDatos = new TareaObtenerDatosTask();	
+						tareaDatos.setUsuario(usuario);
+						tareaDatos.execute();											
 						
-						//Guardar datos del padre y del alumno...
-						Padre padre = new Padre();						
-						padre.obtenerDatosPadreAlumnoPorIdUsuario( usuario.getIdUsuario() );
-						
-						nombrePadre		= padre.getNombre();
-						apellidosPadre	= padre.getApellidos();
-						idAlumno		= padre.getAlumno().getId_alumno();
-						nombreAlumno	= padre.getAlumno().getNombre();
-						apellidosAlumno	= padre.getAlumno().getApellidos();
-						cursoAlumno		= padre.getAlumno().getCurso().getId_curso();
-						idGcm			= padre.getUsuario().getId_gcm();
-						//...o mostrar men� de Padre
-						Intent intent = new Intent(context, PadresMainActivity.class);
-				        startActivity(intent);
 					}
 				}
 				
-				//Guardar datos en Preferences
-				guardarPreferenciasLogIn( usuario );
 				
-				//Se destruye esta actividad
-				finish();
 			}
 			else			
 			{
 				//Si no existe el usuario... crear mensaje de error
 				mensaje = getResources().getString(R.string.msg_login_no_ok);
+				Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
 			}
 			
 			//Mostrar mensaje
-			Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
+			
 		}
 		
 		@Override
@@ -233,9 +254,9 @@ public class LoginActivity extends Activity {
 		}
 
 		// Atributos necesarios para conectar con el servidor
-		public void setContext(Context context) {
-			this.context = context;
-		}
+//		public void setContext(Context context) {
+//			this.context = context;
+//		}
 
 		public void setUser(String user) {
 			this.user = user;
@@ -244,6 +265,124 @@ public class LoginActivity extends Activity {
 		public void setPassword(String pass) {
 			this.pass = pass;
 		}
+	}
+	
+	
+	
+	
+	private class TareaObtenerDatosTask extends AsyncTask<String,Integer,Void>
+	{
+		private Usuario usuario;
+		
+		@Override
+        protected Void doInBackground(String... params) 
+		{									
+			obtenerDatosPadreAlumnoPorIdUsuario(usuario);
+			
+			return null;
+        }
+		
+		
+		public void setUsuario(Usuario user) {
+			this.usuario = user;
+		}
+	}
+	
+	public void obtenerDatosPadreAlumnoPorIdUsuario(Usuario us){
+		
+		this.usuario = us;
+				
+		String sql1 = "SELECT p.nombre as nPadre, p.apellidos as aPadre, a.id_alumno as idAlumno, a.nombre as nAlumno, a.apellidos as aAlumno, a.id_curso, u.id_gcm as idGcm FROM USUARIO u, PADRE p, ALUMNO a ";
+		String sql2 = "WHERE u.id_usuario = " + us.getIdUsuario() + " and u.id_usuario = p.id_usuario and p.id_alumno = a.id_alumno";
+		
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("sqlquery1", sql1));
+		pairs.add(new BasicNameValuePair("sqlquery2", sql2));
+				
+		
+			//Obtener JSON con las asignaturas que imparte
+			WSConection wsconect = new WSConection(context, pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
+				
+				@Override
+				public void getJsonFromWS(JSONObject json) {
+					// TODO Auto-generated method stub
+					if(setDataJson(json, usuario)){
+						openPadreActivity(padre);
+					}
+					
+				}
+			});				
+	}
+
+	
+	public boolean setDataJson(JSONObject json, Usuario us){
+		if(json != null)
+		{		
+			try{
+				padre = new Padre();
+				padre.setUsuario(us);
+				
+				if (json.has("nPadre"))
+				{
+					padre.setNombre( json.getString("nPadre") );							
+				}
+				if (json.has("aPadre"))
+				{
+					padre.setApellidos( json.getString("aPadre") );							
+				}
+				if (json.has("idAlumno"))
+				{
+					padre.getAlumno().setId_alumno( json.getInt("idAlumno") );							
+				}
+				if (json.has("nAlumno"))
+				{
+					padre.getAlumno().setNombre( json.getString("nAlumno") );							
+				}
+				if (json.has("aAlumno"))
+				{
+					padre.getAlumno().setApellidos( json.getString("aAlumno") );							
+				}
+				if (json.has("id_curso"))
+				{
+					padre.getAlumno().getCurso().setId_curso( Integer.parseInt(json.getString("id_curso")) );							
+				}		
+				if (json.has("idGcm"))
+				{
+					padre.getUsuario().setId_gcm( json.getString("idGcm") );							
+				}
+				return true;
+			}catch(JSONException ex){
+				
+			}
+		}
+		return false;
+
+	}
+	
+	public void openPadreActivity(Padre padre){
+		nombrePadre		= padre.getNombre();
+		apellidosPadre	= padre.getApellidos();
+		idAlumno		= padre.getAlumno().getId_alumno();
+		nombreAlumno	= padre.getAlumno().getNombre();
+		apellidosAlumno	= padre.getAlumno().getApellidos();
+		cursoAlumno		= padre.getAlumno().getCurso().getId_curso();
+		
+		if(padre.getUsuario() != null && padre.getUsuario().getId_gcm() != null && !padre.getUsuario().getId_gcm().equals("") && !padre.getUsuario().getId_gcm().equals("null")){
+			idGcm			= padre.getUsuario().getId_gcm();
+		}	
+			//Guardar datos en Preferences
+			guardarPreferenciasLogIn(usuario);
+			
+			//...o mostrar menú de Padre
+			Intent intent = new Intent(context, PadresMainActivity.class);
+	        startActivity(intent);
+	             			
+			//Se destruye esta actividad
+			finish();
+			Toast.makeText(context, "LOGIN OK", Toast.LENGTH_LONG).show();
+		
+		
+		
 	}
 
 }
