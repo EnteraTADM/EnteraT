@@ -72,75 +72,7 @@ public class Padre{
 	}
 	public void setAlumno(Alumno alumno) {
 		this.alumno = alumno;
-	}
+	}	
 	
-	public void obtenerDatosPadreAlumnoPorIdUsuario(Context context, int idUsuario){
-				
-		//		
-		String sql1 = "SELECT p.nombre as nPadre, p.apellidos as aPadre, a.id_alumno as idAlumno, a.nombre as nAlumno, a.apellidos as aAlumno, a.id_curso, u.id_gcm as idGcm FROM USUARIO u, PADRE p, ALUMNO a ";
-		String sql2 = "WHERE u.id_usuario = " + idUsuario + " and u.id_usuario = p.id_usuario and p.id_alumno = a.id_alumno";
-		
-		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
-		pairs.add(new BasicNameValuePair("sqlquery1", sql1));
-		pairs.add(new BasicNameValuePair("sqlquery2", sql2));
-				
-		
-			//Obtener JSON con las asignaturas que imparte
-			WSConection wsconect = new WSConection(context, pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
-				
-				@Override
-				public void getJsonFromWS(JSONObject json) {
-					// TODO Auto-generated method stub
-					setDataJson(json);
-					
-				}
-			});
-			//json = wsconect.getJsonresp();
-			
-			//json = Conexion.obtenerJsonDelServicio(pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE);
-
-			//Si se ha obtenido...
-				
-	}
-
-	
-	public void setDataJson(JSONObject json){
-		if(json != null)
-		{		
-			try{
-				if (json.has("nPadre"))
-				{
-					this.setNombre( json.getString("nPadre") );							
-				}
-				if (json.has("aPadre"))
-				{
-					this.setApellidos( json.getString("aPadre") );							
-				}
-				if (json.has("idAlumno"))
-				{
-					this.getAlumno().setId_alumno( json.getInt("idAlumno") );							
-				}
-				if (json.has("nAlumno"))
-				{
-					this.getAlumno().setNombre( json.getString("nAlumno") );							
-				}
-				if (json.has("aAlumno"))
-				{
-					this.getAlumno().setApellidos( json.getString("aAlumno") );							
-				}
-				if (json.has("id_curso"))
-				{
-					this.getAlumno().getCurso().setId_curso( Integer.parseInt(json.getString("id_curso")) );							
-				}		
-				if (json.has("idGcm"))
-				{
-					this.getUsuario().setId_gcm( json.getString("idGcm") );							
-				}
-			}catch(JSONException ex){
-				
-			}
-		}
-
-	}
 	
 }

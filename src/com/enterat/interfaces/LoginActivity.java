@@ -60,14 +60,7 @@ public class LoginActivity extends Activity {
 		usuario = recuperarPreferenciasLogIn();
 		
 		//...si existe
-		if(usuario.getIdUsuario() != 0){
-		
-			//LogInAsyncTask task = new LogInAsyncTask();
-			//
-			//task.setUser( user.getUser() );
-			//task.setPassword( user.getPassword() );
-			//task.setContext( LoginActivity.this );
-			//task.execute();			
+		if(usuario.getIdUsuario() != 0){	
 			
 			if(usuario.getTipo() == Constantes.PROFESOR){
 				Intent intent = new Intent(this, ProfesorMain.class);
@@ -144,11 +137,9 @@ public class LoginActivity extends Activity {
 	
 	private void guardarPreferenciasLogIn(Usuario user) {
 
-		//
 		SharedPreferences preferences = getSharedPreferences("LogIn", Context.MODE_PRIVATE);
 		SharedPreferences.Editor editor = preferences.edit();
 
-		//
 		editor.putInt("idUsuario", user.getIdUsuario());
 		editor.putString("usuario", user.getUser());
 		editor.putString("password", user.getPassword());
@@ -177,7 +168,6 @@ public class LoginActivity extends Activity {
 	public void setContext(Context context) {
 		this.context = context;
 	}
-
 	
 	
 	
@@ -201,9 +191,6 @@ public class LoginActivity extends Activity {
 			
 			//Si existe el usuario
 			if(usuario != null){
-				
-				//Crear mensaje login OK
-				mensaje = getResources().getString(R.string.msg_login_ok);
 								
 				//Dependiendo del tipo de usario...
 				if(usuario.getTipo() == Constantes.PROFESOR){
@@ -229,11 +216,9 @@ public class LoginActivity extends Activity {
 					if(usuario.getTipo() == Constantes.PADRE){
 						TareaObtenerDatosTask tareaDatos = new TareaObtenerDatosTask();	
 						tareaDatos.setUsuario(usuario);
-						tareaDatos.execute();											
-						
+						tareaDatos.execute();
 					}
-				}
-				
+				}				
 				
 			}
 			else			
@@ -242,8 +227,7 @@ public class LoginActivity extends Activity {
 				mensaje = getResources().getString(R.string.msg_login_no_ok);
 				Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
 			}
-			
-			//Mostrar mensaje
+
 			
 		}
 		
@@ -253,11 +237,6 @@ public class LoginActivity extends Activity {
 			return Usuario.identificarse(user, pass);
 		}
 
-		// Atributos necesarios para conectar con el servidor
-//		public void setContext(Context context) {
-//			this.context = context;
-//		}
-
 		public void setUser(String user) {
 			this.user = user;
 		}
@@ -266,8 +245,7 @@ public class LoginActivity extends Activity {
 			this.pass = pass;
 		}
 	}
-	
-	
+		
 	
 	
 	private class TareaObtenerDatosTask extends AsyncTask<String,Integer,Void>
@@ -288,6 +266,7 @@ public class LoginActivity extends Activity {
 		}
 	}
 	
+	
 	public void obtenerDatosPadreAlumnoPorIdUsuario(Usuario us){
 		
 		this.usuario = us;
@@ -301,7 +280,7 @@ public class LoginActivity extends Activity {
 				
 		
 			//Obtener JSON con las asignaturas que imparte
-			WSConection wsconect = new WSConection(context, pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
+			new WSConection(pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
 				
 				@Override
 				public void getJsonFromWS(JSONObject json) {
@@ -359,6 +338,7 @@ public class LoginActivity extends Activity {
 
 	}
 	
+	
 	public void openPadreActivity(Padre padre){
 		nombrePadre		= padre.getNombre();
 		apellidosPadre	= padre.getApellidos();
@@ -369,7 +349,7 @@ public class LoginActivity extends Activity {
 		
 		if(padre.getUsuario() != null && padre.getUsuario().getId_gcm() != null && !padre.getUsuario().getId_gcm().equals("") && !padre.getUsuario().getId_gcm().equals("null")){
 			idGcm			= padre.getUsuario().getId_gcm();
-		}	
+			
 			//Guardar datos en Preferences
 			guardarPreferenciasLogIn(usuario);
 			
@@ -379,10 +359,114 @@ public class LoginActivity extends Activity {
 	             			
 			//Se destruye esta actividad
 			finish();
-			Toast.makeText(context, "LOGIN OK", Toast.LENGTH_LONG).show();
+			String mensaje = getResources().getString(R.string.msg_login_ok);
+			Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
+		}else{
+			TareaRegistroGCM tarea = new TareaRegistroGCM();	
+    		tarea.execute();			
+		}
+	}
+	
+	
+	
+	private class TareaRegistroGCM extends AsyncTask<String,Integer,String>
+	{		
+		@Override
+        protected String doInBackground(String... params) 
+		{
+            String msg = "";
+            
+            try 
+            {
+                
+                gcm = GoogleCloudMessaging.getInstance(LoginActivity.this);
+                                
+                //Nos registramos en los servidores de GCM
+                String regid = gcm.register(GCM_SERVICE_ID);
+                
+                Log.d("GCM: ", "Registrado en GCM: registration_id=" + regid);
+
+                TareaActualizarIdGCM actualizarGcm = new TareaActualizarIdGCM();	
+                actualizarGcm.setIdUser(usuario.getIdUsuario());
+                actualizarGcm.setIdGCM(regid);
+                actualizarGcm.execute();		                
+            } 
+            catch (IOException ex) 
+            {
+            	Log.d("GCM", "Error registro en GCM:" + ex.getMessage());
+            }
+            
+            return msg;
+        }
+		
+	}
+	
+	
+	private class TareaActualizarIdGCM extends AsyncTask<String,Integer,Void>
+	{
+		private String idGCM;
+		private Integer idUser;
+		
+		@Override
+        protected Void doInBackground(String... params) 
+		{									
+			updateGcmId(idUser, idGCM);
+			
+			return null;
+        }
+
+
+		public void setIdGCM(String idGCM) {
+			this.idGCM = idGCM;
+		}
+	
+		public void setIdUser(Integer idUser) {
+			this.idUser = idUser;
+		}
 		
 		
+	}
+	
+	public boolean updateGcmId(Integer idUser, String idGcm)
+	{
+		this.idGcm = idGcm;
 		
+		String sql1 = "UPDATE USUARIO SET id_gcm = '"+idGcm+"'";
+		String sql2 = " WHERE id_usuario = " + idUser;
+		
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("sqlquery1", sql1));
+		pairs.add(new BasicNameValuePair("sqlquery2", sql2));
+				
+		new WSConection(pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
+			
+			@Override
+			public void getJsonFromWS(JSONObject json) {
+				// TODO Auto-generated method stub
+				setDataJson(json);				
+                actualizarPreferencesAndOpenActivity();               
+			}
+		});
+		
+		return true;
+	
+	}
+	
+	public boolean setDataJson(JSONObject json){
+		return true;
+
+	}
+	
+	public void actualizarPreferencesAndOpenActivity(){
+	     //Guardar datos en Preferences
+			guardarPreferenciasLogIn(usuario);
+			
+			//...o mostrar menú de Padre
+			Intent intent = new Intent(context, PadresMainActivity.class);
+	        startActivity(intent);
+	             			
+			//Se destruye esta actividad
+			finish();
 	}
 
 }

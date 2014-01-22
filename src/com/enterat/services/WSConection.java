@@ -19,7 +19,6 @@ import org.json.JSONObject;
 
 import com.enterat.util.Constantes;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.AsyncTask;
 
@@ -34,18 +33,8 @@ public class WSConection  {
 		private JSONObject jsonresp;
 		Context context;
 		
-		public JSONObject getJsonresp() {
-			return jsonresp;
-		}
 	
-	
-		public void setJsonresp(JSONObject jsonresp) {
-			this.jsonresp = jsonresp;
-		}
-	
-	
-		public WSConection(Context context, List<NameValuePair> pairs, String servicioWeb, int tipoConsulta, int servicio, IConexion iconex){
-			this.context = context;
+		public WSConection(List<NameValuePair> pairs, String servicioWeb, int tipoConsulta, int servicio, IConexion iconex){
 			this.pairs = pairs;
 			this.servicioWeb = servicioWeb;
 			this.tipoConsulta = tipoConsulta;
