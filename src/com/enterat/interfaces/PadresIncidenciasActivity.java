@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.enterat.R;
-import com.enterat.bda.Anuncio;
 import com.enterat.bda.Incidencia;
 import com.enterat.services.IConexion;
 import com.enterat.services.WSConection;
