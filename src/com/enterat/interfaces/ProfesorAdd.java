@@ -1,8 +1,19 @@
 package com.enterat.interfaces;
 
+import java.io.IOException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -156,16 +167,12 @@ public class ProfesorAdd extends Activity{
 			anuncio.setContenido(contenido);
 			anuncio.setFecha(fecha);
 			anuncio.setLeido(0);				
-
+			
 			//Insertar Tarea...
-			if (anuncio.insertarAnuncio() == 0){
-				//ERROR
-				Toast.makeText(getApplicationContext(),"Anuncio NO publicado", Toast.LENGTH_LONG).show();
-			}
-			else{
-				//INSERTADA OK
-				Toast.makeText(getApplicationContext(),"Anuncio publicado correctamente", Toast.LENGTH_LONG).show();					
-			}
+			TareaInsertarAnuncioTask anuncTask = new TareaInsertarAnuncioTask();
+			anuncTask.setAnuncio(anuncio);
+			anuncTask.setContext(ProfesorAdd.this);
+			anuncTask.execute();			
 
 			break;
 			
@@ -249,5 +256,85 @@ public class ProfesorAdd extends Activity{
 		//Borrar contenido
 		conten.setText("");
 	}
+	
+	
+	private class TareaInsertarAnuncioTask extends AsyncTask<String,Integer,Integer>
+	{
+		private Anuncio anuncio;
+		private Context context;
+		
 
+		@Override
+        protected Integer doInBackground(String... params) 
+		{
+			if (anuncio.insertarAnuncio() == 0){
+				//ERROR
+				return Integer.valueOf(0);				
+			}
+			else{
+				//INSERTADA OK
+				return Integer.valueOf(1);								
+			}
+			
+        }
+		
+		@Override
+		protected void onPostExecute(Integer result) {
+
+			super.onPostExecute(result);
+			
+			if(result.compareTo(0) == 0){
+				Toast.makeText(context, R.string.msg_publicar_anuncio_fail, Toast.LENGTH_LONG).show();
+			}else{
+				Toast.makeText(context, R.string.msg_publicar_anuncio_ok, Toast.LENGTH_LONG).show();
+				notificar();
+			}
+			
+		}
+		
+		
+		public void setAnuncio(Anuncio anuncio) {
+			this.anuncio = anuncio;
+		}
+		
+		public void setContext(Context context) {
+			this.context = context;
+		}
+	}
+	
+	
+	public void notificar(){
+		NotificationTask notifTask = new NotificationTask();
+		notifTask.execute();
+	}
+	
+	
+	private class NotificationTask extends AsyncTask<String,Integer,Void>
+	{		
+		@Override
+        protected Void doInBackground(String... params) 
+		{
+			HttpClient client = new DefaultHttpClient();		
+				
+			HttpPost request = new HttpPost("http://www.appservices.eshost.es/servicioweb/gcm2.php");		
+			//request.setHeader("Accept","application/json");	
+			//request.setEntity(new UrlEncodedFormEntity(pairs));
+			
+			try {
+				HttpResponse response = client.execute(request);
+				
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return null;
+			
+        }
+		
+		
+	}
 }
