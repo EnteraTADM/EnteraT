@@ -279,18 +279,18 @@ public class LoginActivity extends Activity {
 		pairs.add(new BasicNameValuePair("sqlquery2", sql2));
 				
 		
-			//Obtener JSON con las asignaturas que imparte
-			new WSConection(pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
-				
-				@Override
-				public void getJsonFromWS(JSONObject json) {
-					// TODO Auto-generated method stub
-					if(setDataJson(json, usuario)){
-						openPadreActivity(padre);
-					}
-					
+		//Obtener JSON con las asignaturas que imparte
+		new WSConection(pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
+			
+			@Override
+			public void getJsonFromWS(JSONObject json) {
+				// TODO Auto-generated method stub
+				if(setDataJson(json, usuario)){
+					openPadreActivity(padre);
 				}
-			});				
+				
+			}
+		});				
 	}
 
 	

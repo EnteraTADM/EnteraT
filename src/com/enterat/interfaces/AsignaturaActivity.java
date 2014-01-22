@@ -1,10 +1,19 @@
 package com.enterat.interfaces;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.enterat.R;
-import com.enterat.bda.Matricula;
+import com.enterat.services.IConexion;
+import com.enterat.services.WSConection;
+import com.enterat.util.Constantes;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -21,10 +30,77 @@ public class AsignaturaActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_asignaturas);
 
-		//Añadir las asignaturas de cada alumno en el spinner
-		Matricula matricula = new Matricula();		
-		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);				
-		String asignaturas = matricula.asignaturasMatriculadasPorIdAlumno( preferences.getInt("id_alumno", 0) );		
+		ObtenerAsignaturasTask asigTask = new ObtenerAsignaturasTask();
+		asigTask.execute();	
+		
+	}
+	
+	private class ObtenerAsignaturasTask extends AsyncTask<String,Integer,Void>
+	{		
+		@Override
+        protected Void doInBackground(String... params) 
+		{									
+			obtenerAsignaturasMatriculadasPorIdAlumno();		
+			
+			return null;
+        }			
+		
+	}
+	
+	
+	public void obtenerAsignaturasMatriculadasPorIdAlumno(){
+		int idAlumno = 0;
+		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);		
+		idAlumno = preferences.getInt("id_alumno", 0);
+		
+		String sql1 = "SELECT a.asignatura FROM ASIGNATURA a, ALUMNO al, MATRICULA m ";
+		String sql2 = "WHERE al.id_alumno = " + idAlumno + " and a.id_asignatura = m.id_asignatura and al.id_alumno = m.id_alumno";
+
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("sqlquery1", sql1));
+		pairs.add(new BasicNameValuePair("sqlquery2", sql2));
+
+		new WSConection(pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
+			
+			@Override
+			public void getJsonFromWS(JSONObject json) {
+				// TODO Auto-generated method stub
+				//Si se ha obtenido...
+				if(json != null)
+				{
+					rellenarDatos(json);
+				}
+				
+			}
+		});				
+	}
+	
+	
+	
+	public void rellenarDatos(JSONObject json){
+		String asignaturas = "";
+		boolean continuar = true;
+		int i = 0;
+		
+		while (continuar){				
+			
+			String txt2 = "subject"+i;
+			if (json.has(txt2))
+			{
+				try {
+					asignaturas = asignaturas + json.getString(txt2) + ",";
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}												
+			}
+			else{
+				continuar = false;
+			}
+			i++;
+		}
+		
 		String[] array_spinner = asignaturas.split(",");
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array_spinner);				
 		Spinner sp = (Spinner) findViewById(R.id.asignaturas_spinner);
@@ -32,7 +108,7 @@ public class AsignaturaActivity extends Activity {
 		sp.setSelection(0);		
 		
 		//TODO
-		//Implementar el cambio de pestañas del tabhost		
+		//Implementar el cambio de pestaï¿½as del tabhost		
 		
 		ArrayAdapter<String> arrayAdapter;
 		ArrayList<String> list = new ArrayList<String>();
