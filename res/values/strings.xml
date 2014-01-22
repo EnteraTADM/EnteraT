@@ -56,9 +56,13 @@
     <!-- Mensajes -->
 
     <string name="msg_publicar_tarea_ok">Tarea publicada correctamente</string>
+     <string name="msg_publicar_tarea_fail">No se ha podido publicar la tarea</string>
     <string name="msg_publicar_examen_ok">Examen publicado correctamente</string>
+    <string name="msg_publicar_examen_fail">No se ha podido publicar el examen</string>
     <string name="msg_publicar_anuncio_ok">Anuncio publicado correctamente</string>
      <string name="msg_publicar_anuncio_fail">No se ha podido publicar el anuncio</string>
+     <string name="msg_publicar_incidencia_ok">Incidencia publicada correctamente</string>
+     <string name="msg_publicar_incidencia_fail">No se ha podido publicar la incidencia</string>
     <string name="msg_login_ok">Login OK</string>
     <string name="msg_login_no_ok">Datos erróneos</string>
     <string name="msg_sin_conexion">No hay conexión a Internet</string>

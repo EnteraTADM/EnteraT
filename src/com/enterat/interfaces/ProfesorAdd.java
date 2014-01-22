@@ -5,10 +5,8 @@ import java.io.IOException;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -168,7 +166,6 @@ public class ProfesorAdd extends Activity{
 			anuncio.setFecha(fecha);
 			anuncio.setLeido(0);				
 			
-			//Insertar Tarea...
 			TareaInsertarAnuncioTask anuncTask = new TareaInsertarAnuncioTask();
 			anuncTask.setAnuncio(anuncio);
 			anuncTask.setContext(ProfesorAdd.this);
@@ -189,16 +186,11 @@ public class ProfesorAdd extends Activity{
 			tarea.setObservaciones(observaciones);
 			tarea.setLeido(0);				
 
-			//Insertar Tarea...
-			if (tarea.insertarTarea() == 0){
-				//ERROR
-				Toast.makeText(getApplicationContext(),"Tarea NO publicada", Toast.LENGTH_LONG).show();
-			}
-			else{
-				//INSERTADA OK
-				Toast.makeText(getApplicationContext(),"Tarea publicada correctamente", Toast.LENGTH_LONG).show();					
-			}
-
+			TareaInsertarTareaTask tareaTask = new TareaInsertarTareaTask();
+			tareaTask.setTarea(tarea);
+			tareaTask.setContext(ProfesorAdd.this);
+			tareaTask.execute();		
+			
 			break;
 			
 		//INSERTAR INCIDENCIA
@@ -213,15 +205,10 @@ public class ProfesorAdd extends Activity{
 			incidencia.setFecha(fecha);
 			incidencia.setLeido(0);				
 
-			//Insertar Tarea...
-			if (incidencia.insertarIncidencia() == 0){
-				//ERROR
-				Toast.makeText(getApplicationContext(),"Incidencia NO publicada", Toast.LENGTH_LONG).show();
-			}
-			else{
-				//INSERTADA OK
-				Toast.makeText(getApplicationContext(),"Incidencia publicada correctamente", Toast.LENGTH_LONG).show();					
-			}
+			TareaInsertarIncidenciaTask incidenciaTask = new TareaInsertarIncidenciaTask();
+			incidenciaTask.setIncidencia(incidencia);
+			incidenciaTask.setContext(ProfesorAdd.this);
+			incidenciaTask.execute();		
 
 			break;
 			
@@ -237,15 +224,10 @@ public class ProfesorAdd extends Activity{
 			examen.setFecha(fecha);
 			examen.setLeido(0);				
 
-			//Insertar Examen...
-			if (examen.insertarExamen() == 0){
-				//ERROR
-				Toast.makeText(getApplicationContext(),"Examen NO publicado", Toast.LENGTH_LONG).show();
-			}
-			else{
-				//INSERTADO OK
-				Toast.makeText(getApplicationContext(),"Examen publicado correctamente", Toast.LENGTH_LONG).show();					
-			}
+			TareaInsertarExamenTask examenTask = new TareaInsertarExamenTask();
+			examenTask.setExamen(examen);
+			examenTask.setContext(ProfesorAdd.this);
+			examenTask.execute();		
 
 			break;			 
 		default: 
@@ -302,6 +284,130 @@ public class ProfesorAdd extends Activity{
 		}
 	}
 	
+	
+	private class TareaInsertarTareaTask extends AsyncTask<String,Integer,Integer>
+	{
+		private Tarea tarea;
+		private Context context;
+		
+		@Override
+        protected Integer doInBackground(String... params) 
+		{
+			if (tarea.insertarTarea() == 0){
+				//ERROR
+				return Integer.valueOf(0);				
+			}
+			else{
+				//INSERTADA OK
+				return Integer.valueOf(1);								
+			}			
+        }
+		
+		@Override
+		protected void onPostExecute(Integer result) {
+
+			super.onPostExecute(result);
+			
+			if(result.compareTo(0) == 0){
+				Toast.makeText(context, R.string.msg_publicar_tarea_fail, Toast.LENGTH_LONG).show();
+			}else{
+				Toast.makeText(context, R.string.msg_publicar_tarea_ok, Toast.LENGTH_LONG).show();
+				notificar();
+			}			
+		}
+				
+		public void setTarea(Tarea tarea) {
+			this.tarea = tarea;
+		}
+		
+		public void setContext(Context context) {
+			this.context = context;
+		}
+	}
+	
+	
+	private class TareaInsertarIncidenciaTask extends AsyncTask<String,Integer,Integer>
+	{
+		private Incidencia incidencia;
+		private Context context;
+		
+		@Override
+        protected Integer doInBackground(String... params) 
+		{
+			if (incidencia.insertarIncidencia() == 0){
+				//ERROR
+				return Integer.valueOf(0);				
+			}
+			else{
+				//INSERTADA OK
+				return Integer.valueOf(1);								
+			}			
+        }
+		
+		@Override
+		protected void onPostExecute(Integer result) {
+
+			super.onPostExecute(result);
+			
+			if(result.compareTo(0) == 0){
+				Toast.makeText(context, R.string.msg_publicar_incidencia_fail, Toast.LENGTH_LONG).show();
+			}else{
+				Toast.makeText(context, R.string.msg_publicar_incidencia_ok, Toast.LENGTH_LONG).show();
+				notificar();
+			}			
+		}
+				
+		public void setIncidencia(Incidencia incidencia) {
+			this.incidencia = incidencia;
+		}
+		
+		public void setContext(Context context) {
+			this.context = context;
+		}
+	}
+	
+	
+	private class TareaInsertarExamenTask extends AsyncTask<String,Integer,Integer>
+	{
+		private Examen examen;
+		private Context context;
+		
+		@Override
+        protected Integer doInBackground(String... params) 
+		{
+			if (examen.insertarExamen() == 0){
+				//ERROR
+				return Integer.valueOf(0);				
+			}
+			else{
+				//INSERTADA OK
+				return Integer.valueOf(1);								
+			}			
+        }
+		
+		@Override
+		protected void onPostExecute(Integer result) {
+
+			super.onPostExecute(result);
+			
+			if(result.compareTo(0) == 0){
+				Toast.makeText(context, R.string.msg_publicar_examen_fail, Toast.LENGTH_LONG).show();
+			}else{
+				Toast.makeText(context, R.string.msg_publicar_examen_ok, Toast.LENGTH_LONG).show();
+				notificar();
+			}			
+		}
+				
+		public void setExamen(Examen examen) {
+			this.examen = examen;
+		}
+		
+		public void setContext(Context context) {
+			this.context = context;
+		}
+	}
+	
+
 	
 	public void notificar(){
 		NotificationTask notifTask = new NotificationTask();
