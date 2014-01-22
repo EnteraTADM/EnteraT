@@ -3,6 +3,7 @@ package com.enterat.interfaces;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -156,16 +157,12 @@ public class ProfesorAdd extends Activity{
 			anuncio.setContenido(contenido);
 			anuncio.setFecha(fecha);
 			anuncio.setLeido(0);				
-
+			
 			//Insertar Tarea...
-			if (anuncio.insertarAnuncio() == 0){
-				//ERROR
-				Toast.makeText(getApplicationContext(),"Anuncio NO publicado", Toast.LENGTH_LONG).show();
-			}
-			else{
-				//INSERTADA OK
-				Toast.makeText(getApplicationContext(),"Anuncio publicado correctamente", Toast.LENGTH_LONG).show();					
-			}
+			TareaInsertarAnuncioTask anuncTask = new TareaInsertarAnuncioTask();
+			anuncTask.setAnuncio(anuncio);
+			anuncTask.setContext(ProfesorAdd.this);
+			anuncTask.execute();			
 
 			break;
 			
@@ -249,5 +246,44 @@ public class ProfesorAdd extends Activity{
 		//Borrar contenido
 		conten.setText("");
 	}
+	
+	
+	private class TareaInsertarAnuncioTask extends AsyncTask<String,Integer,Integer>
+	{
+		private Anuncio anuncio;
+		private Context context;
+		
 
+		@Override
+        protected Integer doInBackground(String... params) 
+		{
+			if (anuncio.insertarAnuncio() == 0){
+				//ERROR
+				return Integer.valueOf(0);				
+			}
+			else{
+				//INSERTADA OK
+				return Integer.valueOf(1);								
+			}
+			
+        }
+		
+		@Override
+		protected void onPostExecute(Integer result) {
+
+			super.onPostExecute(result);
+			
+			Toast.makeText(context,"Anuncio publicado correctamente", Toast.LENGTH_LONG).show();
+		}
+		
+		
+		public void setAnuncio(Anuncio anuncio) {
+			this.anuncio = anuncio;
+		}
+		
+		public void setContext(Context context) {
+			this.context = context;
+		}
+	}
+	
 }
