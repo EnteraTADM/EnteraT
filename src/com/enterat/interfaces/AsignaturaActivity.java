@@ -48,10 +48,9 @@ public class AsignaturaActivity extends Activity {
 	}
 	
 	
-	public void obtenerAsignaturasMatriculadasPorIdAlumno(){
-		int idAlumno = 0;
+	private void obtenerAsignaturasMatriculadasPorIdAlumno(){
 		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);		
-		idAlumno = preferences.getInt("id_alumno", 0);
+		int idAlumno = preferences.getInt("id_alumno", 0);
 		
 		String sql1 = "SELECT a.asignatura FROM ASIGNATURA a, ALUMNO al, MATRICULA m ";
 		String sql2 = "WHERE al.id_alumno = " + idAlumno + " and a.id_asignatura = m.id_asignatura and al.id_alumno = m.id_alumno";
@@ -77,7 +76,7 @@ public class AsignaturaActivity extends Activity {
 	
 	
 	
-	public void rellenarDatos(JSONObject json){
+	private void rellenarDatos(JSONObject json){
 		String asignaturas = "";
 		boolean continuar = true;
 		int i = 0;
