@@ -20,19 +20,6 @@
             android:orientation="vertical" >
 
             <TextView
-                android:id="@+id/profesorTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/txt_profesor"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <TextView
-                android:id="@+id/nombre_t"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="@string/txt_nombre_profesor" />
-
-            <TextView
                 android:id="@+id/Type_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
