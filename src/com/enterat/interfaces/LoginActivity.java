@@ -185,50 +185,18 @@ public class LoginActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(Usuario usuario) {
-			super.onPostExecute(usuario);
-						
-			String mensaje;
+			super.onPostExecute(usuario);						
 			
 			//Si existe el usuario
-			if(usuario != null){
-								
-				//Dependiendo del tipo de usario...
-				if(usuario.getTipo() == Constantes.PROFESOR){
-					//Guardar las asignaturas que imparte dicho profesor...
-					Imparte imparte = new Imparte();
-					asignaturas = imparte.queImparteProfesorPorIdUsuario( usuario.getIdUsuario() );
-					
-					//..as� como su nombre y apellidos
-					nombre    = imparte.getProfesor().getNombre();
-					apellidos = imparte.getProfesor().getApellidos();
-					
-					//...mostrar men� de Profesor...
-					Intent intent = new Intent(context, ProfesorMain.class);
-			        startActivity(intent);
-			      
-			        //Guardar datos en Preferences
-					guardarPreferenciasLogIn( usuario );
-					
-					//Se destruye esta actividad
-					finish();
-				}
-				else{
-					if(usuario.getTipo() == Constantes.PADRE){
-						TareaObtenerDatosTask tareaDatos = new TareaObtenerDatosTask();	
-						tareaDatos.setUsuario(usuario);
-						tareaDatos.execute();
-					}
-				}				
+			if(usuario != null){				
+				TareaObtenerDatosTask tareaDatos = new TareaObtenerDatosTask();	
+				tareaDatos.setUsuario(usuario);
+				tareaDatos.execute();								
 				
-			}
-			else			
-			{
+			}else{
 				//Si no existe el usuario... crear mensaje de error
-				mensaje = getResources().getString(R.string.msg_login_no_ok);
-				Toast.makeText(context, mensaje, Toast.LENGTH_LONG).show();
+				Toast.makeText(context, getResources().getString(R.string.msg_login_no_ok), Toast.LENGTH_LONG).show();
 			}
-
-			
 		}
 		
 		@Override
@@ -254,8 +222,12 @@ public class LoginActivity extends Activity {
 		
 		@Override
         protected Void doInBackground(String... params) 
-		{									
-			obtenerDatosPadreAlumnoPorIdUsuario(usuario);
+		{
+			if(usuario.getTipo() == Constantes.PROFESOR){
+				obtenerDatosImparteProfesorPorIdUsuario(usuario);
+			}else if(usuario.getTipo() == Constantes.PADRE){
+				obtenerDatosPadreAlumnoPorIdUsuario(usuario);
+			}			
 			
 			return null;
         }
@@ -293,6 +265,29 @@ public class LoginActivity extends Activity {
 		});				
 	}
 
+	
+	public void obtenerDatosImparteProfesorPorIdUsuario(Usuario us){
+		//Guardar las asignaturas que imparte dicho profesor...
+		Imparte imparte = new Imparte();
+		asignaturas = imparte.queImparteProfesorPorIdUsuario( us.getIdUsuario() );
+		
+		//..as� como su nombre y apellidos
+		nombre    = imparte.getProfesor().getNombre();
+		apellidos = imparte.getProfesor().getApellidos();
+		
+		//...mostrar men� de Profesor...
+		Intent intent = new Intent(context, ProfesorMain.class);
+        startActivity(intent);
+      
+        //Guardar datos en Preferences
+		guardarPreferenciasLogIn( usuario );
+		
+		//Se destruye esta actividad
+		finish();
+		
+	}
+	
+	
 	
 	public boolean setDataJson(JSONObject json, Usuario us){
 		if(json != null)
