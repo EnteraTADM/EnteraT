@@ -70,7 +70,7 @@ public class LoginActivity extends Activity {
 			//task.execute();			
 			
 			if(usuario.getTipo() == Constantes.PROFESOR){
-				Intent intent = new Intent(this, ProfesorAdd.class);
+				Intent intent = new Intent(this, ProfesorMain.class);
 		        startActivity(intent);
 			}
 			else{
@@ -216,7 +216,7 @@ public class LoginActivity extends Activity {
 					apellidos = imparte.getProfesor().getApellidos();
 					
 					//...mostrar men� de Profesor...
-					Intent intent = new Intent(context, ProfesorAdd.class);
+					Intent intent = new Intent(context, ProfesorMain.class);
 			        startActivity(intent);
 			      
 			        //Guardar datos en Preferences

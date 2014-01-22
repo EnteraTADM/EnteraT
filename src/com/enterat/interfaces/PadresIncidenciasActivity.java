@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.enterat.R;
-import com.enterat.bda.Tarea;
+import com.enterat.bda.Incidencia;
 import com.enterat.util.MyListAdapter;
 
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class PadresTasksActivity extends Activity {
+public class PadresIncidenciasActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +31,19 @@ public class PadresTasksActivity extends Activity {
 		HashMap<String, Object> item;
 		ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
 		
-		Tarea tarea = new Tarea();		
+		Incidencia incidencia = new Incidencia();		
 		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);				
-		ArrayList<Tarea> listaTareas = tarea.obtenerTareas( preferences.getInt("cursoAlumno", 0) );
+		ArrayList<Incidencia> listaIncidencias = incidencia.obtenerIncidencias( preferences.getInt("cursoAlumno", 0) );
 		
-		for(int i = 0; i < listaTareas.size(); i++){
+		for(int i = 0; i < listaIncidencias.size(); i++){
 			
-			tarea = listaTareas.get(i);
+			incidencia = listaIncidencias.get(i);
 			
 			item = new HashMap<String, Object>();		
-			item.put("Icon", android.R.drawable.ic_menu_agenda);
-			item.put("Title", tarea.getAsignatura().getAsignatura());
-			item.put("Date", tarea.getFecha());
-			item.put("Description", tarea.getContenido());
+			item.put("Icon", android.R.drawable.ic_menu_info_details);
+			item.put("Title", incidencia.getAsignatura().getAsignatura());
+			item.put("Date", incidencia.getFecha());
+			item.put("Description", incidencia.getContenido());
 			data.add(item);	
 		}
 		

@@ -30,7 +30,7 @@ public class PadresMainActivity extends Activity {
 		alumnoText.setText( "Alumno: " + preferences.getString("nombreAlumno", "") + " " + preferences.getString("apellidosAlumno", "") );
 		
 		TextView cursoText = (TextView)findViewById( R.id.cursoTextView );
-		cursoText.setText( "Curso: " + preferences.getInt("cursoAlumno", 0) + "ºESO" );		
+		cursoText.setText( "Curso: " + preferences.getInt("cursoAlumno", 0) + "ÂºESO" );		
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class PadresMainActivity extends Activity {
 		editor.clear();
 		editor.commit();
 		
-		//Ir al menú principal
+		//Ir al menï¿½ principal
 		Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);		
         
@@ -91,11 +91,11 @@ public class PadresMainActivity extends Activity {
 	}
 
 	public void anuncionsClick(View v) {
-		startActivity(new Intent(this, PadresTasksActivity.class));
+		startActivity(new Intent(this, PadresAnunciosActivity.class));
 	}
 
 	public void incidenciasClick(View v) {
-		startActivity(new Intent(this, PadresTasksActivity.class));
+		startActivity(new Intent(this, PadresIncidenciasActivity.class));
 	}	
 
 }
