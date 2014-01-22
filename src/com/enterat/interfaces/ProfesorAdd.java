@@ -1,5 +1,15 @@
 package com.enterat.interfaces;
 
+import java.io.IOException;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -277,6 +287,7 @@ public class ProfesorAdd extends Activity{
 				Toast.makeText(context, R.string.msg_publicar_anuncio_fail, Toast.LENGTH_LONG).show();
 			}else{
 				Toast.makeText(context, R.string.msg_publicar_anuncio_ok, Toast.LENGTH_LONG).show();
+				notificar();
 			}
 			
 		}
@@ -291,4 +302,39 @@ public class ProfesorAdd extends Activity{
 		}
 	}
 	
+	
+	public void notificar(){
+		NotificationTask notifTask = new NotificationTask();
+		notifTask.execute();
+	}
+	
+	
+	private class NotificationTask extends AsyncTask<String,Integer,Void>
+	{		
+		@Override
+        protected Void doInBackground(String... params) 
+		{
+			HttpClient client = new DefaultHttpClient();		
+				
+			HttpPost request = new HttpPost("http://www.appservices.eshost.es/servicioweb/gcm2.php");		
+			//request.setHeader("Accept","application/json");	
+			//request.setEntity(new UrlEncodedFormEntity(pairs));
+			
+			try {
+				HttpResponse response = client.execute(request);
+				
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			return null;
+			
+        }
+		
+		
+	}
 }
