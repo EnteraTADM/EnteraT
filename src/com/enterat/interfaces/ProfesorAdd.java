@@ -246,6 +246,9 @@ public class ProfesorAdd extends Activity{
 			break;
 		}
 		
+		//Borrar contenido
+		conten.setText("");
+		
 		//Ir al main
 		finish();
 	}
