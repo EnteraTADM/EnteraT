@@ -153,6 +153,10 @@ public class ProfesorAdd extends Activity{
 		sb.append(dobYear.toString()).append(separacion1).append(dobMonth.toString()).append(separacion2).append(dobDate.toString());
 		String fecha = sb.toString();		
 
+		//
+		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);		
+		int idProfesor =  preferences.getInt("idProfe", 0);
+		
 		//Recuperar el tipo de lo que queremos insertar
 		Spinner sp = (Spinner) findViewById(R.id.Tipo_Spinner_t);			
 		int tipo = sp.getSelectedItemPosition();				
@@ -171,6 +175,7 @@ public class ProfesorAdd extends Activity{
 			anuncio.setLeido(0);				
 			
 			TareaInsertarAnuncioTask anuncTask = new TareaInsertarAnuncioTask();
+			anuncTask.setIdProfesor(idProfesor);
 			anuncTask.setAnuncio(anuncio);
 			anuncTask.setContext(ProfesorAdd.this);
 			anuncTask.execute();			
@@ -190,6 +195,7 @@ public class ProfesorAdd extends Activity{
 			tarea.setLeido(0);				
 
 			TareaInsertarTareaTask tareaTask = new TareaInsertarTareaTask();
+			tareaTask.setIdProfesor(idProfesor);
 			tareaTask.setTarea(tarea);
 			tareaTask.setContext(ProfesorAdd.this);
 			tareaTask.execute();		
@@ -209,6 +215,7 @@ public class ProfesorAdd extends Activity{
 			incidencia.setLeido(0);				
 
 			TareaInsertarIncidenciaTask incidenciaTask = new TareaInsertarIncidenciaTask();
+			incidenciaTask.setIdProfesor(idProfesor);
 			incidenciaTask.setIncidencia(incidencia);
 			incidenciaTask.setContext(ProfesorAdd.this);
 			incidenciaTask.execute();		
@@ -228,6 +235,7 @@ public class ProfesorAdd extends Activity{
 			examen.setLeido(0);				
 
 			TareaInsertarExamenTask examenTask = new TareaInsertarExamenTask();
+			examenTask.setIdProfesor(idProfesor);
 			examenTask.setExamen(examen);
 			examenTask.setContext(ProfesorAdd.this);
 			examenTask.execute();		
@@ -247,12 +255,12 @@ public class ProfesorAdd extends Activity{
 	{
 		private Anuncio anuncio;
 		private Context context;
-		
+		private int idProfesor;
 
 		@Override
         protected Integer doInBackground(String... params) 
 		{
-			if (anuncio.insertarAnuncio() == 0){
+			if (anuncio.insertarAnuncio(idProfesor) == 0){
 				//ERROR
 				return Integer.valueOf(0);				
 			}
@@ -284,6 +292,10 @@ public class ProfesorAdd extends Activity{
 		public void setContext(Context context) {
 			this.context = context;
 		}
+		
+		public void setIdProfesor(int IdProfesor) {
+			this.idProfesor = IdProfesor;
+		}
 	}
 	
 	
@@ -291,11 +303,12 @@ public class ProfesorAdd extends Activity{
 	{
 		private Tarea tarea;
 		private Context context;
+		private int idProfesor;
 		
 		@Override
         protected Integer doInBackground(String... params) 
 		{
-			if (tarea.insertarTarea() == 0){
+			if (tarea.insertarTarea(idProfesor) == 0){
 				//ERROR
 				return Integer.valueOf(0);				
 			}
@@ -325,6 +338,10 @@ public class ProfesorAdd extends Activity{
 		public void setContext(Context context) {
 			this.context = context;
 		}
+		
+		public void setIdProfesor(int IdProfesor) {
+			this.idProfesor = IdProfesor;
+		}
 	}
 	
 	
@@ -332,11 +349,12 @@ public class ProfesorAdd extends Activity{
 	{
 		private Incidencia incidencia;
 		private Context context;
+		private int idProfesor;
 		
 		@Override
         protected Integer doInBackground(String... params) 
 		{
-			if (incidencia.insertarIncidencia() == 0){
+			if (incidencia.insertarIncidencia(idProfesor) == 0){
 				//ERROR
 				return Integer.valueOf(0);				
 			}
@@ -366,6 +384,10 @@ public class ProfesorAdd extends Activity{
 		public void setContext(Context context) {
 			this.context = context;
 		}
+		
+		public void setIdProfesor(int IdProfesor) {
+			this.idProfesor = IdProfesor;
+		}
 	}
 	
 	
@@ -373,11 +395,12 @@ public class ProfesorAdd extends Activity{
 	{
 		private Examen examen;
 		private Context context;
+		private int idProfesor;
 		
 		@Override
         protected Integer doInBackground(String... params) 
 		{
-			if (examen.insertarExamen() == 0){
+			if (examen.insertarExamen(idProfesor) == 0){
 				//ERROR
 				return Integer.valueOf(0);				
 			}
@@ -407,6 +430,10 @@ public class ProfesorAdd extends Activity{
 		public void setContext(Context context) {
 			this.context = context;
 		}
+		
+		public void setIdProfesor(int IdProfesor) {
+			this.idProfesor = IdProfesor;
+		}		
 	}
 	
 	//

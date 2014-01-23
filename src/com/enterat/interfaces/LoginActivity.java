@@ -33,6 +33,7 @@ import android.widget.Toast;
 public class LoginActivity extends Activity {
 
 	private String asignaturas = "";
+	private int idProfe		   = 0;
 	private String nombre	   = "";
 	private String apellidos   = "";
 	private String nombrePadre		= "";
@@ -120,6 +121,7 @@ public class LoginActivity extends Activity {
 		usuario.setId_gcm(preferences.getString("idGcm", ""));
 		
 		asignaturas = preferences.getString("asignaturas", "");
+		idProfe		= preferences.getInt("idProfe", 0);
 		nombre		= preferences.getString("nombre", "");
 		apellidos	= preferences.getString("apellidos", "");
 		
@@ -146,6 +148,7 @@ public class LoginActivity extends Activity {
 		editor.putInt("tipo", user.getTipo());
 		
 		editor.putString("asignaturas", asignaturas);
+		editor.putInt("idProfe", idProfe);
 		editor.putString("nombre", nombre);
 		editor.putString("apellidos", apellidos);
 		
@@ -272,11 +275,12 @@ public class LoginActivity extends Activity {
 		Imparte imparte = new Imparte();
 		asignaturas = imparte.queImparteProfesorPorIdUsuario( us.getIdUsuario() );
 		
-		//..as� como su nombre y apellidos
+		//..asi como su nombre y apellidos
+		idProfe	  = imparte.getProfesor().getId_profesor();
 		nombre    = imparte.getProfesor().getNombre();
 		apellidos = imparte.getProfesor().getApellidos();
 		
-		//...mostrar men� de Profesor...
+		//...mostrar menu de Profesor...
 		Intent intent = new Intent(context, ProfesorMain.class);
         startActivity(intent);
       
@@ -284,12 +288,10 @@ public class LoginActivity extends Activity {
 		guardarPreferenciasLogIn( usuario );
 		
 		//Se destruye esta actividad
-		finish();
-		
-	}
+		finish();		
+	}	
 	
-	
-	
+	//
 	public boolean setDataJson(JSONObject json, Usuario us){
 		if(json != null)
 		{		

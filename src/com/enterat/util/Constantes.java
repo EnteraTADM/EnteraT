@@ -7,10 +7,10 @@ public class Constantes {
 	public static final int PADRE    = 2;
 		
 	//Constantes para indicar el tipo en el spiner de insertar (profesores)
-	public static final int SP_ANUNCIO	  = 0;
-	public static final int SP_TAREA      = 1;
-	public static final int SP_INCIDENCIA = 2;
-	public static final int SP_EXAMEN	  = 3;
+	public static final int SP_TAREA      = 0;
+	public static final int SP_EXAMEN	  = 1;
+	public static final int SP_ANUNCIO	  = 2;
+	public static final int SP_INCIDENCIA = 3;
 	
 	//Constantes para indicar el tipo de consulta a ejecutar
 	public static final int SQL_CONSULTAR = 0;

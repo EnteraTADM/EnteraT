@@ -69,7 +69,7 @@ public class Anuncio {
 	}
 
 	//INSERTAR EXAMEN
-	public int insertarAnuncio()
+	public int insertarAnuncio(int idProfesor)
 	{
 		JSONObject json;
 
@@ -78,10 +78,10 @@ public class Anuncio {
 		int alumno		 = this.getAlumno().getId_alumno();
 		String contenido = this.getContenido();
 		String fecha 	 = this.getFecha();
-
+		
 		//
-		String sql1 = "INSERT INTO ANUNCIO (id_anuncio, id_alumno, id_asignatura, fecha, concepto, leido)";
-		String sql2 = "VALUES (" + id + ", " + alumno + ", " + asignatura + ", '" + fecha + "', '" + contenido + "', " + leido + ")";
+		String sql1 = "INSERT INTO ANUNCIO (id_anuncio, id_alumno, id_asignatura, fecha, concepto, leido, id_profesor)";
+		String sql2 = "VALUES (" + id + ", " + alumno + ", " + asignatura + ", '" + fecha + "', '" + contenido + "', " + leido + ", " + idProfesor + ")";
 
 		//
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();

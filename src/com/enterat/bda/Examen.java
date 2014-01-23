@@ -76,7 +76,7 @@ public class Examen {
 	}
 
 	//INSERTAR EXAMEN
-	public int insertarExamen()
+	public int insertarExamen(int idProfesor)
 	{
 		JSONObject json;
 
@@ -87,8 +87,8 @@ public class Examen {
 		String fecha 	 = this.getFecha();
 
 		//
-		String sql1 = "INSERT INTO EXAMEN (id_examen, id_alumno, id_asignatura, fecha, concepto, leido)";
-		String sql2 = "VALUES (" + id + ", " + alumno + ", " + asignatura + ", '" + fecha + "', '" + contenido + "', " + leido + ")";
+		String sql1 = "INSERT INTO EXAMEN (id_examen, id_alumno, id_asignatura, fecha, concepto, leido, id_profesor)";
+		String sql2 = "VALUES (" + id + ", " + alumno + ", " + asignatura + ", '" + fecha + "', '" + contenido + "', " + leido + ", " + idProfesor + ")";
 
 		//
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();

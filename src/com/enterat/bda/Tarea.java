@@ -83,7 +83,7 @@ public class Tarea {
 	}
 
 	//INSERTAR TAREA
-	public int insertarTarea()
+	public int insertarTarea(int idProfesor)
 	{
 		JSONObject json;
 
@@ -96,8 +96,8 @@ public class Tarea {
 		int leido		 = this.getLeido();
 
 		//
-		String sql1 = "INSERT INTO TAREA (id_itarea, id_alumno, id_asignatura, fecha, concepto, observaciones, leido)";
-		String sql2 = "VALUES (" + id + ", " + alumno + ", " + asignatura + ", '" + fecha + "', '" + contenido + "', '" + observa + "', " + leido + ")";
+		String sql1 = "INSERT INTO TAREA (id_itarea, id_alumno, id_asignatura, fecha, concepto, observaciones, leido, id_profesor)";
+		String sql2 = "VALUES (" + id + ", " + alumno + ", " + asignatura + ", '" + fecha + "', '" + contenido + "', '" + observa + "', " + leido + ", " + idProfesor + ")";
 
 		//
 		List<NameValuePair> pairs = new ArrayList<NameValuePair>();

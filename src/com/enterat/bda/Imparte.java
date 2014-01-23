@@ -133,7 +133,7 @@ public class Imparte {
 					String txt2 = "subject"+i;
 					if (json.has(txt1))
 					{
-						//Guardar CÓDIGO asignatura
+						//Guardar CODIGO asignatura
 						asignaturas = asignaturas + json.getString(txt1) + "-";
 						
 						if (json.has(txt2))
