@@ -198,10 +198,17 @@ public class AsignaturaActivity extends Activity {
 	{		
 		@Override
 		protected Void doInBackground(String... params) 
-		{									
-			obtenerTareasAsignatura();		
+		{								
+			//						
 
 			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			
+			obtenerTareasAsignatura();
 		}
 	}
 
@@ -227,8 +234,8 @@ public class AsignaturaActivity extends Activity {
 	{		
 		@Override
 		protected Void doInBackground(String... params) 
-		{									
-			//obtenerExamenesAsignatura();						
+		{								
+			//						
 
 			return null;
 		}
@@ -263,10 +270,17 @@ public class AsignaturaActivity extends Activity {
 	{		
 		@Override
 		protected Void doInBackground(String... params) 
-		{									
-			obtenerAnunciosAsignatura();		
+		{								
+			//						
 
 			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			
+			obtenerAnunciosAsignatura();
 		}
 	}
 
@@ -292,10 +306,17 @@ public class AsignaturaActivity extends Activity {
 	{		
 		@Override
 		protected Void doInBackground(String... params) 
-		{									
-			obtenerIncidenciasAsignatura();		
+		{								
+			//						
 
 			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			
+			obtenerIncidenciasAsignatura();
 		}
 	}
 
