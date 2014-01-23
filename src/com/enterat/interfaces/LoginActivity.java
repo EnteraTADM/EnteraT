@@ -59,7 +59,7 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 		
 		this.setContext(LoginActivity.this);
-		
+		checkPlayServices();
 		//Recuperar datos del usuario...
 		usuario = recuperarPreferenciasLogIn();
 		
@@ -379,7 +379,7 @@ public class LoginActivity extends Activity {
             
             try 
             {
-            	if (checkPlayServices()) {                
+            	
 	                gcm = GoogleCloudMessaging.getInstance(LoginActivity.this);
 	                                
 	                //Nos registramos en los servidores de GCM
@@ -391,9 +391,7 @@ public class LoginActivity extends Activity {
 	                actualizarGcm.setIdUser(usuario.getIdUsuario());
 	                actualizarGcm.setIdGCM(regid);
 	                actualizarGcm.execute();
-            	}else{
-            		actualizarPreferencesAndOpenActivity();
-            	}
+           
             } 
             catch (IOException ex) 
             {
