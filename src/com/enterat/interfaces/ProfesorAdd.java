@@ -1,12 +1,19 @@
 package com.enterat.interfaces;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
-import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Context;
@@ -27,6 +34,7 @@ import com.enterat.bda.Asignatura;
 import com.enterat.bda.Examen;
 import com.enterat.bda.Incidencia;
 import com.enterat.bda.Tarea;
+import com.enterat.services.Conexion;
 import com.enterat.util.Constantes;
 
 public class ProfesorAdd extends Activity{
@@ -122,7 +130,7 @@ public class ProfesorAdd extends Activity{
 		String[] temp = selected.split("-");
 
 		Asignatura asignatura = new Asignatura();
-		asignatura.setId_asignatura( Integer.parseInt(temp[0]) );
+		asignatura.setId_asignatura( Integer.parseInt(temp[0]) );		
 
 		//Recuperar el contenido de la Tarea/Examen
 		EditText conten  = (EditText)findViewById(R.id.contenido_t);
@@ -143,11 +151,7 @@ public class ProfesorAdd extends Activity{
 		if (dobDate < 10)  separacion2 = "-0";
 
 		sb.append(dobYear.toString()).append(separacion1).append(dobMonth.toString()).append(separacion2).append(dobDate.toString());
-		String fecha = sb.toString();		        
-
-		//Recuperar las observaciones 
-		//TODO crear campo observaciones ??? en la bda est� el campo...
-		String observaciones = "";
+		String fecha = sb.toString();		
 
 		//Recuperar el tipo de lo que queremos insertar
 		Spinner sp = (Spinner) findViewById(R.id.Tipo_Spinner_t);			
@@ -183,7 +187,6 @@ public class ProfesorAdd extends Activity{
 			tarea.setAlumno(alumno);
 			tarea.setContenido(contenido);
 			tarea.setFecha(fecha);
-			tarea.setObservaciones(observaciones);
 			tarea.setLeido(0);				
 
 			TareaInsertarTareaTask tareaTask = new TareaInsertarTareaTask();
@@ -269,11 +272,10 @@ public class ProfesorAdd extends Activity{
 				Toast.makeText(context, R.string.msg_publicar_anuncio_fail, Toast.LENGTH_LONG).show();
 			}else{
 				Toast.makeText(context, R.string.msg_publicar_anuncio_ok, Toast.LENGTH_LONG).show();
-				notificar();
+				notificar( this.anuncio.getAsignatura().getId_asignatura() );
 			}
 			
-		}
-		
+		}		
 		
 		public void setAnuncio(Anuncio anuncio) {
 			this.anuncio = anuncio;
@@ -312,7 +314,7 @@ public class ProfesorAdd extends Activity{
 				Toast.makeText(context, R.string.msg_publicar_tarea_fail, Toast.LENGTH_LONG).show();
 			}else{
 				Toast.makeText(context, R.string.msg_publicar_tarea_ok, Toast.LENGTH_LONG).show();
-				notificar();
+				notificar( this.tarea.getAsignatura().getId_asignatura() );
 			}			
 		}
 				
@@ -353,7 +355,7 @@ public class ProfesorAdd extends Activity{
 				Toast.makeText(context, R.string.msg_publicar_incidencia_fail, Toast.LENGTH_LONG).show();
 			}else{
 				Toast.makeText(context, R.string.msg_publicar_incidencia_ok, Toast.LENGTH_LONG).show();
-				notificar();
+				notificar( this.incidencia.getAsignatura().getId_asignatura() );
 			}			
 		}
 				
@@ -394,7 +396,7 @@ public class ProfesorAdd extends Activity{
 				Toast.makeText(context, R.string.msg_publicar_examen_fail, Toast.LENGTH_LONG).show();
 			}else{
 				Toast.makeText(context, R.string.msg_publicar_examen_ok, Toast.LENGTH_LONG).show();
-				notificar();
+				notificar( this.examen.getAsignatura().getId_asignatura() );
 			}			
 		}
 				
@@ -407,28 +409,39 @@ public class ProfesorAdd extends Activity{
 		}
 	}
 	
-
-	
-	public void notificar(){
+	//
+	public void notificar(int idAsignatura){
 		NotificationTask notifTask = new NotificationTask();
+		notifTask.setIdAsignatura( idAsignatura );
 		notifTask.execute();
 	}
 	
-	
+	//
 	private class NotificationTask extends AsyncTask<String,Integer,Void>
 	{		
+		private int IdAsignatura;
+		
 		@Override
         protected Void doInBackground(String... params) 
 		{
-			HttpClient client = new DefaultHttpClient();		
-				
-			HttpPost request = new HttpPost("http://www.appservices.eshost.es/servicioweb/gcm2.php");		
-			//request.setHeader("Accept","application/json");	
-			//request.setEntity(new UrlEncodedFormEntity(pairs));
+			//String misXurros = "APA91bGETnNSIIMCOtvtjIR1LBHyhetVKpBOLwiDQH0kYjo57TWXWQtil_rOLbBsI8JmMJuop3woYCE6JvCy_iCVucX7DH7zBEn-Cx9YIj6Gi0SrvJ4LaXof2Mllg5CrNvu0WbpZ7J-8iPNzBHXWxivULSyuy1efpQ,APA91bFUA-QEIj70qZb6K0jRCaIPbFsFHfUQvNLnJDwX_uvGyyZVHs89dvfdfN7YBtOxwRO9Dizdvzi5YTopcIou-l2Kv8X1H5Ap621actqU0xuF_xymoFL6CEDVy9qR83MfqCtSgyrlusxgnnztx1YthG8n-gFf3Q";
+			String misXurros = recuperaXurros( this.IdAsignatura );
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			pairs.add(new BasicNameValuePair("xurros", misXurros));
 			
-			try {
-				HttpResponse response = client.execute(request);
+			HttpClient client = new DefaultHttpClient();		
+			HttpPost request = new HttpPost("http://www.appservices.eshost.es/servicioweb/gcm3.php");		
 				
+			try {
+				request.setHeader("Accept","application/json");
+				request.setEntity(new UrlEncodedFormEntity(pairs));
+				
+				//HttpResponse response = client.execute(request);
+				client.execute(request);
+				
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();				
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -437,10 +450,66 @@ public class ProfesorAdd extends Activity{
 				e.printStackTrace();
 			}
 			
-			return null;
-			
+			return null;			
         }
 		
+		private String recuperaXurros( int idAsignatura ){
+			
+			JSONObject json;
+			String xurros = "";
+			
+			//
+			String sql1 = "SELECT u.id_gcm FROM ASIGNATURA asi, CURSO c, USUARIO u, PADRE p, ALUMNO a ";
+			String sql2 = "WHERE asi.id_asignatura = " + idAsignatura + " and asi.id_curso = c.id_curso and c.id_curso = a.id_curso and a.id_alumno = p.id_alumno and p.id_usuario = u.id_usuario";
+
+			//
+			List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+			pairs.add(new BasicNameValuePair("sqlquery1", sql1));
+			pairs.add(new BasicNameValuePair("sqlquery2", sql2));				
+
+			//Obtener JSON
+			try {
+
+				json = Conexion.obtenerJsonDelServicio(pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE);
+
+				if(json != null)
+				{
+					boolean continuar = true;
+					int i = 0;
+					
+					while (continuar){
+					
+						String txt1 = "xurro"+i;						
+						if (json.has(txt1))
+						{
+							//Guardar
+							xurros = xurros + json.getString(txt1) + ",";
+						}
+						else{
+							continuar = false;
+						}
+						i++;
+					}
+				}
+
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}		
+
+			//
+			return xurros;			
+		}
+		
+		public void setIdAsignatura( int idAsignatura ){
+			this.IdAsignatura = idAsignatura;
+		}
 		
 	}
 }

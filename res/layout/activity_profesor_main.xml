@@ -24,27 +24,51 @@
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button1"
-        android:layout_width="200dp"
+        android:id="@+id/profesInsertar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/add"
+        android:onClick="insertarClick" />
+
+    <TextView
+        android:id="@+id/textViewInsertar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:onClick="insertarClick"
-        android:text="Insertar cosas..." />
+        android:text="@string/txt_insertar"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button2"
-        android:layout_width="200dp"
+        android:id="@+id/profesModificar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/edit"
+        android:onClick="modificarClick" />
+
+    <TextView
+        android:id="@+id/textViewModificar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:onClick="modificarClick"
-        android:text="Modificar cosas..." />
+        android:text="@string/txt_modificar"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="200dp"
+        android:id="@+id/profesEliminar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/delete"
+        android:onClick="eliminarClick" />
+
+    <TextView
+        android:id="@+id/textViewEliminar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:onClick="eliminarClick"
-        android:text="Eliminar cosas..." />
+        android:text="@string/txt_eliminar"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </LinearLayout>

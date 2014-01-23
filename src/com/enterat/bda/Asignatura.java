@@ -18,6 +18,13 @@ public class Asignatura {
 	private String contenido;
 	private String evaluacion;
 	
+	//Constructor
+	public Asignatura() {
+		super();
+		
+		this.curso = new Curso();		
+	}
+	
 	//Getters and Setters
 	public int getId_asignatura() {
 		return id_asignatura;

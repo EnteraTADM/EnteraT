@@ -38,7 +38,7 @@
                 android:id="@+id/asignatura_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_asignatura"
+                android:text="@string/txt_pregunta_asignatura"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <Spinner

@@ -26,28 +26,26 @@
 
     <!-- Text View -->
 
-    <string name="txt_clase_completa">Toda la clase</string>
     <string name="txt_pregunta_tarea">¿Qué vas a añadir?</string>
     <string name="txt_pregunta_asignatura">¿Para qué asignatura?</string>
-    <string name="txt_fecha_entrega">Fecha de entrega</string>
-    <string name="txt_fecha_examen">Fecha examen</string>
     <string name="txt_fecha">Fecha </string>
+    <string name="txt_contenido">Contenido</string>
     <string name="txt_nombre_profesor">Nombre del profesor/a</string>
     <string name="txt_profesor">Profesor/a: </string>
     <string name="txt_alumno">Alumno: </string>
-    <string name="txt_curso">Curso / Grupo</string>
     <string name="txt_tareas">Tareas</string>
     <string name="txt_examenes">Exámenes</string>
     <string name="txt_anuncios">Anuncios</string>
     <string name="txt_incidencias">Incidencias</string>
-    <string name="txt_asignatura">Asignatura</string>
-    <string name="txt_contenido">Contenido</string>
+    <string name="txt_asignatura">Asignatura</string>    
     <string name="txt_publicar">Publicar</string>
     <string name="txt_user">Usuario: </string>
     <string name="txt_pass">Contraseña: </string>
     <string name="txt_login">Entrar</string>
-    <string name="txt_fila">Fila</string>
-
+    <string name="txt_insertar">Insertar contenido</string>
+    <string name="txt_modificar">Modificar contenido</string>
+    <string name="txt_eliminar">Eliminar contenido</string>
+    
     <!-- Menus -->
 
     <string name="menu_ordenar">Ordenar por fecha</string>
@@ -56,42 +54,27 @@
     <!-- Mensajes -->
 
     <string name="msg_publicar_tarea_ok">Tarea publicada correctamente</string>
-     <string name="msg_publicar_tarea_fail">No se ha podido publicar la tarea</string>
+    <string name="msg_publicar_tarea_fail">No se ha podido publicar la tarea</string>
     <string name="msg_publicar_examen_ok">Examen publicado correctamente</string>
     <string name="msg_publicar_examen_fail">No se ha podido publicar el examen</string>
     <string name="msg_publicar_anuncio_ok">Anuncio publicado correctamente</string>
-     <string name="msg_publicar_anuncio_fail">No se ha podido publicar el anuncio</string>
-     <string name="msg_publicar_incidencia_ok">Incidencia publicada correctamente</string>
-     <string name="msg_publicar_incidencia_fail">No se ha podido publicar la incidencia</string>
+    <string name="msg_publicar_anuncio_fail">No se ha podido publicar el anuncio</string>
+    <string name="msg_publicar_incidencia_ok">Incidencia publicada correctamente</string>
+    <string name="msg_publicar_incidencia_fail">No se ha podido publicar la incidencia</string>
     <string name="msg_login_ok">Login OK</string>
     <string name="msg_login_no_ok">Datos erróneos</string>
     <string name="msg_sin_conexion">No hay conexión a Internet</string>
-    
 
     <!-- Arrays -->
 
     <string-array name="array_insertar">
-        <item>Anuncio</item>
         <item>Tarea</item>
-        <item>Incidencia</item>
         <item>Examen</item>
-    </string-array>
-    <string-array name="array_cursos">
-        <item>Matemáticas 2ndo ESO</item>
-        <item>Matemáticas 3ero ESO</item>
-        <item>Tecnologia 2ndo ESO</item>
-        <item>Informática 1ero ESO</item>
-        <item>Informática 2ndo ESO</item>
-        <item>Informática 3ero ESO</item>
-        <item>Informática 4rto ESO</item>
-    </string-array>
+        <item>Anuncio</item>
+        <item>Incidencia</item>        
+    </string-array>    
     <string-array name="array_asignaturas">
-        <item>Matemáticas</item>
-        <item>Valenciano</item>
-        <item>Inglés</item>
-        <item>Ed.Física</item>
-        <item>Informática</item>
-        <item>Mísica</item>
+        <item>Sin asignaturas</item>
     </string-array>
 
 </resources>

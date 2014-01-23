@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ProfesorMain extends Activity {
 
@@ -79,12 +78,12 @@ public class ProfesorMain extends Activity {
 	
 	public void modificarClick(View v) {
 		//Mostrar mensaje
-		Toast.makeText(this, "modificar...", Toast.LENGTH_LONG).show();
+		startActivity(new Intent(this, ProfesorEdit.class));
 	}
 	
 	public void eliminarClick(View v) {
 		//Mostrar mensaje
-		Toast.makeText(this, "eliminar...", Toast.LENGTH_LONG).show();
+		startActivity(new Intent(this, ProfesorDelete.class));
 	}
 	
 }

@@ -86,6 +86,7 @@ public class Conexion extends Activity {
 					responseString = responseString.replaceFirst("asignatura","subject" + i);
 					responseString = responseString.replaceFirst("concepto","contenido" + i);
 					responseString = responseString.replaceFirst("fecha","date" + i);
+					responseString = responseString.replaceFirst("id_gcm","xurro" + i);
 					continuar = (!responseString.equalsIgnoreCase(responseString_Ant));
 					i++;
 				}

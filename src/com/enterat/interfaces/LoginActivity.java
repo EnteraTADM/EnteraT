@@ -265,7 +265,7 @@ public class LoginActivity extends Activity {
 		});				
 	}
 
-	
+	//
 	public void obtenerDatosImparteProfesorPorIdUsuario(Usuario us){
 		this.usuario = us;
 		//Guardar las asignaturas que imparte dicho profesor...
