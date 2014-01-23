@@ -27,6 +27,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.AdapterView;
@@ -268,8 +269,8 @@ public class ProfesorEdit extends Activity {
     	
     	//Mostrar diálogo para preguntar si se planta o continua...
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle("Eliminar contenido");
-        dialogBuilder.setMessage("¿Desea eliminar este elemento?");
+        dialogBuilder.setTitle("Modificar entrada");
+        dialogBuilder.setMessage("¿Desea modificar este contenido?");
 
         //NO ELIMINAR
         dialogBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -284,7 +285,7 @@ public class ProfesorEdit extends Activity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
             	//
-                eliminarContenido(arg0, arg1, arg2, arg3);
+                modificarContenido(arg0, arg1, arg2, arg3);
             }
         });
 
@@ -292,10 +293,52 @@ public class ProfesorEdit extends Activity {
         dialog.show();
     }
 	
-	private void eliminarContenido(AdapterView<?> arg0, View arg1, int arg2, long arg3){
+	
+	private void modificarContenido(AdapterView<?> arg0, View arg1, int arg2, long arg3){
+		MyListAdapter adapter = (MyListAdapter) arg0.getAdapter();
+		HashMap<String, Object> item = adapter.getItem((int) arg3);
 
-		Toast.makeText(arg0.getContext(), "Fila: " + arg3, Toast.LENGTH_SHORT).show();
+		
+		
+		int icono 		  = (Integer) item.get("Icon");
+		String asignatura = (String) item.get("Title");
+		String fecha	  = (String) item.get("Date");
+		String concepto	  = (String) item.get("Description");
+		int tipo = 0;
+		
+		switch(icono) { 
+		case android.R.drawable.ic_menu_agenda:
+			//TAREA:
+			tipo = Constantes.SP_TAREA;
+			break;
+		case android.R.drawable.ic_menu_edit:
+			//EXAMEN:
+			tipo = Constantes.SP_EXAMEN;
+			break;
+		case android.R.drawable.ic_menu_my_calendar:
+			//Constantes.SP_ANUNCIO:
+			tipo = Constantes.SP_ANUNCIO;
+			break;
+		case android.R.drawable.ic_menu_info_details:
+			//INCIDENCIA:
+			tipo = Constantes.SP_INCIDENCIA;
+			break;
+		default:
+
+			break;
+		}
+		
+		Bundle b = new Bundle();
+		b.putInt("tipo", tipo);
+		b.putString("asignatura", asignatura);
+		b.putString("fecha", fecha);
+		b.putString("concepto", concepto);
+		
+		Intent intent = new Intent(this, ProfesorEditItem.class);
+		intent.putExtras(b);
+        startActivity(intent);
 		
 	}
+	
 
 }

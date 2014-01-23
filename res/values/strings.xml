@@ -27,7 +27,9 @@
     <!-- Text View -->
 
     <string name="txt_pregunta_tarea">¿Qué vas a añadir?</string>
+    <string name="txt_tipo_tarea">Tipo de contenido</string>
     <string name="txt_pregunta_asignatura">¿Para qué asignatura?</string>
+     <string name="txt_tipo_asignatura">Asignatura</string>
     <string name="txt_fecha">Fecha </string>
     <string name="txt_contenido">Contenido</string>
     <string name="txt_nombre_profesor">Nombre del profesor/a</string>
@@ -45,6 +47,7 @@
     <string name="txt_insertar">Insertar contenido</string>
     <string name="txt_modificar">Modificar contenido</string>
     <string name="txt_eliminar">Eliminar contenido</string>
+    <string name="txt_modificar_item">Modificar</string>
     
     <!-- Menus -->
 

@@ -78,7 +78,11 @@
             android:name="com.enterat.interfaces.ProfesorDelete"
             android:label="@string/txt_app_name" >
         </activity>
-
+		 <activity
+            android:name="com.enterat.interfaces.ProfesorEditItem"
+            android:label="@string/txt_app_name" >
+        </activity>
+        
         <receiver
             android:name="com.enterat.gcm.GCMBroadcastReceiver"
             android:permission="com.google.android.c2dm.permission.SEND" >

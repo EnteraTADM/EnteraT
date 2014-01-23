@@ -59,7 +59,9 @@ public class LoginActivity extends Activity {
 		setContentView(R.layout.activity_login);
 		
 		this.setContext(LoginActivity.this);
+		
 		checkPlayServices();
+		
 		//Recuperar datos del usuario...
 		usuario = recuperarPreferenciasLogIn();
 		
