@@ -17,6 +17,8 @@ import com.enterat.services.Conexion;
 import com.enterat.services.IConexion;
 import com.enterat.services.WSConection;
 import com.enterat.util.Constantes;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
 import android.os.AsyncTask;
@@ -48,6 +50,7 @@ public class LoginActivity extends Activity {
 	private Usuario usuario;
 	private Context context;
 	private Padre padre;
+	private final static int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -376,18 +379,21 @@ public class LoginActivity extends Activity {
             
             try 
             {
-                
-                gcm = GoogleCloudMessaging.getInstance(LoginActivity.this);
-                                
-                //Nos registramos en los servidores de GCM
-                String regid = gcm.register(GCM_SERVICE_ID);
-                
-                Log.d("GCM: ", "Registrado en GCM: registration_id=" + regid);
-
-                TareaActualizarIdGCM actualizarGcm = new TareaActualizarIdGCM();	
-                actualizarGcm.setIdUser(usuario.getIdUsuario());
-                actualizarGcm.setIdGCM(regid);
-                actualizarGcm.execute();		                
+            	if (checkPlayServices()) {                
+	                gcm = GoogleCloudMessaging.getInstance(LoginActivity.this);
+	                                
+	                //Nos registramos en los servidores de GCM
+	                String regid = gcm.register(GCM_SERVICE_ID);
+	                
+	                Log.d("GCM: ", "Registrado en GCM: registration_id=" + regid);
+	
+	                TareaActualizarIdGCM actualizarGcm = new TareaActualizarIdGCM();	
+	                actualizarGcm.setIdUser(usuario.getIdUsuario());
+	                actualizarGcm.setIdGCM(regid);
+	                actualizarGcm.execute();
+            	}else{
+            		actualizarPreferencesAndOpenActivity();
+            	}
             } 
             catch (IOException ex) 
             {
@@ -467,5 +473,21 @@ public class LoginActivity extends Activity {
 			//Se destruye esta actividad
 			finish();
 	}
+	
 
+	private boolean checkPlayServices() {
+	    int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+	    if (resultCode != ConnectionResult.SUCCESS) {
+	        if (GooglePlayServicesUtil.isUserRecoverableError(resultCode)) {
+	            GooglePlayServicesUtil.getErrorDialog(resultCode, this,
+	                    PLAY_SERVICES_RESOLUTION_REQUEST).show();
+	        } else {
+	            Log.i("GCM: ", "This device is not supported.");
+	            finish();
+	        }
+	        return false;
+	    }
+	    return true;
+	}
+	
 }
