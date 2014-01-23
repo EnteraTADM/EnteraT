@@ -62,19 +62,5 @@ public class MyListAdapter extends ArrayAdapter<HashMap<String, Object>> {
 		return view;		
 	}
 
-	@Override
-	public int getViewTypeCount() {
-	
-		return 2;
-	}
-
-	@Override
-	public int getItemViewType(int position) {
-	
-		if (position % 2 == 0)
-			return 0;
-		else
-			return 1;
-	}
 
 }
