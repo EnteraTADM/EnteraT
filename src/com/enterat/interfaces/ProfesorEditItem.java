@@ -25,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.enterat.R;
@@ -52,44 +53,26 @@ public class ProfesorEditItem extends Activity{
 		
 		//Recuperar asignaturas que imparte el profesor
 		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);
-		Spinner sp2 = (Spinner) findViewById(R.id.asignatura_Spinner_t2);		
-		String asignaturas = preferences.getString("asignaturas", "");
-		String[] array_spinner = asignaturas.split(",");
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, array_spinner);
-		sp2.setAdapter(adapter);
-		sp2.setSelection(0);
-		for(int i = 0; i < array_spinner.length; i++){
-			if(array_spinner[i].contains(datos.getString("asignatura"))){
-				sp2.setSelection(i);
-			}
-		}		
-		
-		Spinner sp = (Spinner) findViewById(R.id.Tipo_Spinner_t2);
-		sp.setSelection(datos.getInt("tipo"));
+				
+		TextView asignatura = (TextView)findViewById(R.id.asignatura_TextView2);
+		asignatura.setText(datos.getString("asignatura"));
+			
 		EditText contenido = (EditText)findViewById(R.id.contenido_t2);
 		contenido.setText(datos.getString("concepto"));
 		
+		TextView fecha = (TextView)findViewById(R.id.dataTextView2);
+		fecha.setText(datos.getString("fecha"));
+		
+		TextView tipoS = (TextView)findViewById(R.id.Type_TextView2);
+		tipoS.setText(datos.getString("tipoS"));
+		
 		SharedPreferences pref = getSharedPreferences("guardado_profedit",Context.MODE_PRIVATE);
 		SharedPreferences.Editor editar=pref.edit();
-		editar.putInt("posicionsp",sp2.getSelectedItemPosition());
+		
 		editar.putString("contenido",contenido.getText().toString());
-		
-		String fecha = datos.getString("fecha");
-		
-		//2014-02-06
-		String[] fechaSpl = fecha.split("-");
-		
-		if(fechaSpl != null && fechaSpl.length == 3){
-			Integer year    = Integer.valueOf(fechaSpl[0]);
-			Integer month   = Integer.valueOf(fechaSpl[1]);
-			Integer day     = Integer.valueOf(fechaSpl[2]);
-			DatePicker date = (DatePicker) findViewById(R.id.DatePicker_t2);
-			date.updateDate(year,month,day);
-			
-			editar.putInt("anyo", year);
-			editar.putInt("mes", month);
-			editar.putInt("dia", day);
-		}
+		editar.putString("asignatura",asignatura.getText().toString());
+		editar.putString("fecha",fecha.getText().toString());
+		editar.putString("tipoS",tipoS.getText().toString());
 		
 		editar.commit();
 	}
@@ -101,25 +84,22 @@ public class ProfesorEditItem extends Activity{
 		SharedPreferences pref = getSharedPreferences("guardado_profedit",Context.MODE_PRIVATE);
 		SharedPreferences.Editor editar=pref.edit( );
 
-		//Guardamos el texto del edit-text
+		TextView asignatura = (TextView)findViewById(R.id.asignatura_TextView2);
+		asignatura.setText(datos.getString("asignatura"));
+			
 		EditText contenido = (EditText)findViewById(R.id.contenido_t2);
-		String text_contenido = contenido.getText().toString();
-		editar.putString("contenido",text_contenido);
+		contenido.setText(datos.getString("concepto"));
+		
+		TextView fecha = (TextView)findViewById(R.id.dataTextView2);
+		fecha.setText(datos.getString("fecha"));
+		
+		TextView tipoS = (TextView)findViewById(R.id.Type_TextView2);
+		tipoS.setText(datos.getString("tipoS"));
 
-		//Guardamos la fecha del data_picke
-		DatePicker date=(DatePicker) findViewById(R.id.DatePicker_t2);
-		Integer year=date.getYear();
-		Integer month=date.getMonth();
-		Integer day=date.getDayOfMonth();
-
-		editar.putInt("anyo", year);
-		editar.putInt("mes", month);
-		editar.putInt("dia", day);
-
-		//Guardamos la posici�n de los spinner asignaturas
-		Spinner sp=(Spinner) findViewById(R.id.asignatura_Spinner_t2);
-		Integer posicion = sp.getPositionForView(sp);
-		editar.putInt("posicionsp",posicion);
+		editar.putString("contenido",contenido.getText().toString());
+		editar.putString("asignatura",asignatura.getText().toString());
+		editar.putString("fecha",fecha.getText().toString());
+		editar.putString("tipoS",tipoS.getText().toString());
 
 		editar.commit( );
 	}
@@ -136,88 +116,35 @@ public class ProfesorEditItem extends Activity{
 		EditText contenido = (EditText)findViewById(R.id.contenido_t2);
 		contenido.setText(text_contenido);
 
-		// Recuperamos la posici�n de los spinner
-		Spinner sp=(Spinner) findViewById(R.id.asignatura_Spinner_t2);
-		Integer posicion = prefe.getInt("posicionsp", 0);
-		sp.setSelection(posicion);		
-				
-		// Recuperamos fecha del date-picker
-		Integer year    = prefe.getInt("anyo", 0);
-		Integer month   = prefe.getInt("mes", 0);
-		Integer day     = prefe.getInt("dia", 0);
-		DatePicker date = (DatePicker) findViewById(R.id.DatePicker_t2);
-		// si la fecha esta a cero es que no hemos guardado nada y se quedara la que sale por defecto
-		if(year==0){
-		}
-		else{
-			date.updateDate(year,month,day);
-		}
+		String text_asignatura = prefe.getString("asignatura","");
+		TextView asignatura = (TextView)findViewById(R.id.asignatura_TextView2);
+		asignatura.setText(text_asignatura);
+		
+		String text_fecha = prefe.getString("fecha","");
+		TextView fecha = (TextView)findViewById(R.id.dataTextView2);
+		fecha.setText(text_fecha);
+		
+		String text_tipoS = prefe.getString("tipoS","");
+		TextView tipoS = (TextView)findViewById(R.id.Type_TextView2);
+		tipoS.setText(text_tipoS);
 	}	
 	
 	//Boton publicar	
 	public void publicarClick(View v) {
 
-		//Recuperar el objeta alumno
-		Alumno alumno = new Alumno();
-		
-		//Loquesea para toda la clase --> alumno = -1
-		alumno.setId_alumno(-1);
-		
-		//Recuperar el objeto asignatura
-		Spinner sp_asignatura = (Spinner) findViewById(R.id.asignatura_Spinner_t2);
-		String selected = (String) sp_asignatura.getSelectedItem();
-		String[] temp = selected.split("-");
 
-		Asignatura asignatura = new Asignatura();
-		asignatura.setId_asignatura( Integer.parseInt(temp[0]) );		
-
-		//Recuperar el contenido de la Tarea/Examen
-		EditText conten  = (EditText)findViewById(R.id.contenido_t2);
-		String contenido = conten.getText().toString();				
-
-		//Recuperar la fecha de la Tarea/Examen
-		DatePicker fechaPicker = (DatePicker) findViewById(R.id.DatePicker_t2);								
-
-		Integer dobYear  = fechaPicker.getYear();
-		Integer dobMonth = fechaPicker.getMonth() + 1; //haciendo pruebas siempre inserta el mes anterior, por eso sumo 1 �?�?�?
-		Integer dobDate  = fechaPicker.getDayOfMonth();
-
-		StringBuilder sb = new StringBuilder();
-
-		String separacion1 = "-";
-		String separacion2 = "-";		        
-		if (dobMonth < 10) separacion1 = "-0";
-		if (dobDate < 10)  separacion2 = "-0";
-
-		sb.append(dobYear.toString()).append(separacion1).append(dobMonth.toString()).append(separacion2).append(dobDate.toString());
-		String fecha = sb.toString();		
-
-		//
-		SharedPreferences preferences = getSharedPreferences("LogIn",Context.MODE_PRIVATE);		
-		int idProfesor =  preferences.getInt("idProfe", 0);
-		
-		//Recuperar el tipo de lo que queremos insertar
-		Spinner sp = (Spinner) findViewById(R.id.Tipo_Spinner_t2);			
-		int tipo = sp.getSelectedItemPosition();				
-
-		switch(tipo) {
+		switch(datos.getInt("tipo")) {
 		//INSERTAR ANUNCIO
 		case Constantes.SP_ANUNCIO:			
 
 			Anuncio anuncio = new Anuncio();				
-
-			anuncio.setId_anuncio(0);
-			anuncio.setAsignatura(asignatura);
-			anuncio.setAlumno(alumno);
-			anuncio.setContenido(contenido);
-			anuncio.setFecha(fecha);
-			anuncio.setLeido(0);				
+					
 			
-			TareaInsertarAnuncioTask anuncTask = new TareaInsertarAnuncioTask();
-			anuncTask.setIdProfesor(idProfesor);
-			anuncTask.setAnuncio(anuncio);
-			anuncTask.setContext(ProfesorEditItem.this);
-			anuncTask.execute();			
+//			TareaInsertarAnuncioTask anuncTask = new TareaInsertarAnuncioTask();
+//			anuncTask.setIdProfesor(idProfesor);
+//			anuncTask.setAnuncio(anuncio);
+//			anuncTask.setContext(ProfesorEditItem.this);
+//			anuncTask.execute();			
 
 			break;
 			
@@ -225,19 +152,13 @@ public class ProfesorEditItem extends Activity{
 		case Constantes.SP_TAREA: 
 			
 			Tarea tarea = new Tarea();				
+	
 
-			tarea.setId_tarea(0);
-			tarea.setAsignatura(asignatura);
-			tarea.setAlumno(alumno);
-			tarea.setContenido(contenido);
-			tarea.setFecha(fecha);
-			tarea.setLeido(0);				
-
-			TareaInsertarTareaTask tareaTask = new TareaInsertarTareaTask();
-			tareaTask.setIdProfesor(idProfesor);
-			tareaTask.setTarea(tarea);
-			tareaTask.setContext(ProfesorEditItem.this);
-			tareaTask.execute();		
+//			TareaInsertarTareaTask tareaTask = new TareaInsertarTareaTask();
+//			tareaTask.setIdProfesor(idProfesor);
+//			tareaTask.setTarea(tarea);
+//			tareaTask.setContext(ProfesorEditItem.this);
+//			tareaTask.execute();		
 			
 			break;
 			
@@ -246,18 +167,18 @@ public class ProfesorEditItem extends Activity{
 
 			Incidencia incidencia = new Incidencia();				
 
-			incidencia.setId_incidencia(0);
-			incidencia.setAsignatura(asignatura);
-			incidencia.setAlumno(alumno);
-			incidencia.setContenido(contenido);
-			incidencia.setFecha(fecha);
-			incidencia.setLeido(0);				
-
-			TareaInsertarIncidenciaTask incidenciaTask = new TareaInsertarIncidenciaTask();
-			incidenciaTask.setIdProfesor(idProfesor);
-			incidenciaTask.setIncidencia(incidencia);
-			incidenciaTask.setContext(ProfesorEditItem.this);
-			incidenciaTask.execute();		
+//			incidencia.setId_incidencia(0);
+//			incidencia.setAsignatura(asignatura);
+//			incidencia.setAlumno(alumno);
+//			incidencia.setContenido(contenido);
+//			incidencia.setFecha(fecha);
+//			incidencia.setLeido(0);				
+//
+//			TareaInsertarIncidenciaTask incidenciaTask = new TareaInsertarIncidenciaTask();
+//			incidenciaTask.setIdProfesor(idProfesor);
+//			incidenciaTask.setIncidencia(incidencia);
+//			incidenciaTask.setContext(ProfesorEditItem.this);
+//			incidenciaTask.execute();		
 
 			break;
 			
@@ -266,18 +187,18 @@ public class ProfesorEditItem extends Activity{
 		
 			Examen examen = new Examen();				
 
-			examen.setId_examen(0);
-			examen.setAsignatura(asignatura);
-			examen.setAlumno(alumno);
-			examen.setContenido(contenido);
-			examen.setFecha(fecha);
-			examen.setLeido(0);				
-
-			TareaInsertarExamenTask examenTask = new TareaInsertarExamenTask();
-			examenTask.setIdProfesor(idProfesor);
-			examenTask.setExamen(examen);
-			examenTask.setContext(ProfesorEditItem.this);
-			examenTask.execute();		
+//			examen.setId_examen(0);
+//			examen.setAsignatura(asignatura);
+//			examen.setAlumno(alumno);
+//			examen.setContenido(contenido);
+//			examen.setFecha(fecha);
+//			examen.setLeido(0);				
+//
+//			TareaInsertarExamenTask examenTask = new TareaInsertarExamenTask();
+//			examenTask.setIdProfesor(idProfesor);
+//			examenTask.setExamen(examen);
+//			examenTask.setContext(ProfesorEditItem.this);
+//			examenTask.execute();		
 
 			break;			 
 		default: 
@@ -285,8 +206,7 @@ public class ProfesorEditItem extends Activity{
 			break;
 		}
 		
-		//Borrar contenido
-		conten.setText("");
+	
 	}
 	
 	

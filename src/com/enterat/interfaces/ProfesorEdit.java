@@ -305,23 +305,28 @@ public class ProfesorEdit extends Activity {
 		String fecha	  = (String) item.get("Date");
 		String concepto	  = (String) item.get("Description");
 		int tipo = 0;
+		String tipoS = "";
 		
 		switch(icono) { 
 		case android.R.drawable.ic_menu_agenda:
 			//TAREA:
 			tipo = Constantes.SP_TAREA;
+			tipoS = "Tarea";
 			break;
 		case android.R.drawable.ic_menu_edit:
 			//EXAMEN:
 			tipo = Constantes.SP_EXAMEN;
+			tipoS = "Examen";
 			break;
 		case android.R.drawable.ic_menu_my_calendar:
 			//Constantes.SP_ANUNCIO:
 			tipo = Constantes.SP_ANUNCIO;
+			tipoS = "Anuncio";
 			break;
 		case android.R.drawable.ic_menu_info_details:
 			//INCIDENCIA:
 			tipo = Constantes.SP_INCIDENCIA;
+			tipoS = "Incidencia";
 			break;
 		default:
 
@@ -333,6 +338,7 @@ public class ProfesorEdit extends Activity {
 		b.putString("asignatura", asignatura);
 		b.putString("fecha", fecha);
 		b.putString("concepto", concepto);
+		b.putString("tipoS", tipoS);
 		
 		Intent intent = new Intent(this, ProfesorEditItem.class);
 		intent.putExtras(b);

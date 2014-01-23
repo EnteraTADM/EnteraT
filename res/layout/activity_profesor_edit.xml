@@ -19,46 +19,56 @@
             android:layout_height="437dp"
             android:orientation="vertical" >
 
-            <TextView
+             <TextView
                 android:id="@+id/Type_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_tipo_tarea"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/Tipo_Spinner_t2"
-                style="@style/spinner_aplicacion"
-                android:layout_width="match_parent"
+             
+            <TextView
+                android:id="@+id/Type_TextView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.75"
-                android:entries="@array/array_insertar" />
-
+                android:text="@string/txt_tipo_tarea"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+            
             <TextView
                 android:id="@+id/asignatura_TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_tipo_asignatura"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <Spinner
-                android:id="@+id/asignatura_Spinner_t2"
-                style="@style/spinner_aplicacion"
-                android:layout_width="match_parent"
+            
+             <TextView
+                android:id="@+id/asignatura_TextView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:alpha="0.75" />
+                android:text="@string/txt_tipo_asignatura"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
 
-            <TextView
+          
+
+            
+            
+            
+           <TextView
                 android:id="@+id/dataTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_fecha"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            <DatePicker
-                android:id="@+id/DatePicker_t2"
+            
+            <TextView
+                android:id="@+id/dataTextView2"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="@string/txt_fecha"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
+           
+
+            
 
             <TextView
                 android:id="@+id/deuresTextView"
