@@ -35,12 +35,12 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
 public class ProfesorDelete extends Activity {
-	
+
 	Tarea tarea			  = new Tarea();
 	Examen examen		  = new Examen();
 	Anuncio anuncio		  = new Anuncio();
 	Incidencia incidencia = new Incidencia();
-	
+
 	ArrayList<Tarea> listaTareas		   = new ArrayList<Tarea>();
 	ArrayList<Examen> listaExamens 		   = new ArrayList<Examen>();
 	ArrayList<Anuncio> listaAnuncios 	   = new ArrayList<Anuncio>();
@@ -61,18 +61,18 @@ public class ProfesorDelete extends Activity {
 	private class ObtenerContenidoTask extends AsyncTask<String,Integer,Void>
 	{			
 		private Context context;
-		
+
 		public void setContext(Context context) {
 			this.context = context;
 		}
-		
+
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
-			
+
 			HashMap<String, Object> item;
 			ArrayList<HashMap<String, Object>> data = new ArrayList<HashMap<String, Object>>();
-			
+
 			for(int j = 0; j < listaTareas.size(); j++){
 
 				tarea = listaTareas.get(j);
@@ -117,7 +117,7 @@ public class ProfesorDelete extends Activity {
 				item.put("Description", incidencia.getContenido());
 				data.add(item);	
 			}
-			
+
 			MyListAdapter adapter = new MyListAdapter(context, R.layout.list_view_item, data);
 			ListView list = (ListView) findViewById(R.id.lvList);
 			list.setAdapter(adapter);		
@@ -200,7 +200,7 @@ public class ProfesorDelete extends Activity {
 			if (json.has(txt1))
 			{
 				try {
-					
+
 					switch(tipo) { 
 					case Constantes.SP_TAREA:
 
@@ -211,7 +211,7 @@ public class ProfesorDelete extends Activity {
 						if (json.has( txt3 )) { tarea.setFecha( json.getString( txt3 ) ); }
 
 						listaTareas.add( tarea );
-						
+
 						break;
 					case Constantes.SP_EXAMEN:
 
@@ -233,7 +233,7 @@ public class ProfesorDelete extends Activity {
 						if (json.has( txt3 )) { anuncio.setFecha( json.getString( txt3 ) ); }
 
 						listaAnuncios.add( anuncio );
-						
+
 						break;
 					case Constantes.SP_INCIDENCIA:
 
@@ -244,7 +244,7 @@ public class ProfesorDelete extends Activity {
 						if (json.has( txt3 )) { incidencia.setFecha( json.getString( txt3 ) ); }
 
 						listaIncidencias.add( incidencia );
-						
+
 						break;
 					default:
 
@@ -265,38 +265,82 @@ public class ProfesorDelete extends Activity {
 
 	//
 	private void preguntarEliminarContenido(final AdapterView<?> arg0, final View arg1, final int arg2, final long arg3){
-    	
-    	//Mostrar diálogo para preguntar si se planta o continua...
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        dialogBuilder.setTitle("Eliminar contenido");
-        dialogBuilder.setMessage("¿Desea eliminar este elemento?");
 
-        //NO ELIMINAR
-        dialogBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            	//                
-            }
-        });
+		//Mostrar diálogo para preguntar si se planta o continua...
+		AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+		dialogBuilder.setTitle("Eliminar contenido");
+		dialogBuilder.setMessage("¿Desea eliminar este elemento?");
 
-        //SI ELIMINAR
-        dialogBuilder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            	//
-                eliminarContenido(arg0, arg1, arg2, arg3);
-            }
-        });
+		//NO ELIMINAR
+		dialogBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				//                
+			}
+		});
 
-        Dialog dialog = dialogBuilder.create();
-        dialog.show();
-    }
-	
-	private void eliminarContenido(AdapterView<?> arg0, View arg1, int arg2, long arg3){
+		//SI ELIMINAR
+		dialogBuilder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				//
+				eliminarContenido(arg0, arg1, arg2, arg3);
+			}
+		});
 
-		//TODO
-		Toast.makeText(arg0.getContext(), "Fila: " + arg3, Toast.LENGTH_SHORT).show();
+		Dialog dialog = dialogBuilder.create();
+		dialog.show();
+	}
+
+	private void eliminarContenido(AdapterView<?> arg0, View arg1, int arg2, long arg3)
+	{
+		MyListAdapter adapter = (MyListAdapter) arg0.getAdapter();
+		HashMap<String, Object> item = adapter.getItem((int) arg3);
+
+		int icono 		  = (Integer) item.get("Icon");
+		String asignatura = (String) item.get("Title");
+		String fecha	  = (String) item.get("Date");
+		String concepto	  = (String) item.get("Description");
 		
+		int eliminado = 0;
+		//
+		switch(icono) { 
+		case android.R.drawable.ic_menu_agenda:
+			//TAREA:
+			eliminado = tarea.eliminarTarea(asignatura, fecha, concepto);
+
+			break;
+		case android.R.drawable.ic_menu_edit:
+			//EXAMEN:
+			eliminado = examen.eliminarExamen(asignatura, fecha, concepto);
+
+			break;
+		case android.R.drawable.ic_menu_my_calendar:
+			//Constantes.SP_ANUNCIO:
+			eliminado = anuncio.eliminarAnuncio(asignatura, fecha, concepto);
+
+			break;
+		case android.R.drawable.ic_menu_info_details:
+			//INCIDENCIA:
+			eliminado = incidencia.eliminarIncidencia(asignatura, fecha, concepto);
+
+			break;
+		default:
+
+			break;
+		}
+
+		//
+		if (eliminado == 0){		
+			Toast.makeText(arg0.getContext(), "No se ha podido eliminar", Toast.LENGTH_SHORT).show();			
+		}
+		else{			
+			Toast.makeText(arg0.getContext(), "Eliminado correctamente", Toast.LENGTH_SHORT).show();
+						
+			//Volver al main!!!
+			finish();			
+		}
+
 	}
 
 }

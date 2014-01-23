@@ -18,13 +18,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.enterat.services.Conexion;
+import com.enterat.services.IConexion;
+import com.enterat.services.WSConection;
 import com.enterat.util.Constantes;
 
 public class Tarea {
 
 	public Tarea() {
 		super();
-		
+
 		this.asignatura = new Asignatura();
 		this.alumno 	= new Alumno();		
 	}
@@ -131,7 +133,31 @@ public class Tarea {
 
 		//Tarea NO insertada
 		return 0;
-	}	
-	
+	}
+
+	//ELIMINAR TAREA
+	public int eliminarTarea(String asignatura, String fecha, String concepto)
+	{
+		//
+		String sql1 = "DELETE FROM TAREA ";
+		String sql2 = "WHERE fecha = '" + fecha + "' and concepto = '" + concepto + "'";
+
+		//
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("sqlquery1", sql1));
+		pairs.add(new BasicNameValuePair("sqlquery2", sql2));				
+
+		new WSConection(pairs, "service.executeSQL.php", Constantes.SQL_CONSULTAR, Constantes.SERV_IMPARTE, new IConexion() {
+
+			@Override
+			public void getJsonFromWS(JSONObject json) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		//Tarea eliminada
+		return 1;
+	}
 
 }
