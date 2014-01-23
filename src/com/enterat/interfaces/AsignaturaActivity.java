@@ -73,9 +73,13 @@ public class AsignaturaActivity extends Activity {
 							
 								
 				String asignatura = (String) sp.getSelectedItem();
-				
-				//TODO
-				idAsignatura = (int) arg3;
+				if (asignatura.compareTo("Sin asignaturas") == 0){				
+					idAsignatura = -1;					
+				}
+				else{
+					String[] array_spinner = asignatura.split("-");
+					idAsignatura = Integer.parseInt( array_spinner[0] );
+				}				
 				
 				
 				int i = tabs.getCurrentTab();
