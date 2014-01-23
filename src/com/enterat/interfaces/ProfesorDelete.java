@@ -23,12 +23,16 @@ import com.enterat.util.MyListAdapter;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 public class ProfesorDelete extends Activity {
 	
@@ -122,10 +126,8 @@ public class ProfesorDelete extends Activity {
 
 				@Override
 				public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
-					// TODO Aquí hay que implementar el eliminar !!!
-
-					//Toast.makeText(arg0.getContext(), getResources().getString(R.string.row) + ": " + arg3, Toast.LENGTH_SHORT).show();
+					//
+					preguntarEliminarContenido(arg0, arg1, arg2, arg3);
 				}
 			};
 			list.setOnItemClickListener(listener);
@@ -259,6 +261,42 @@ public class ProfesorDelete extends Activity {
 			}
 			i++;
 		}
+	}
+
+	//
+	private void preguntarEliminarContenido(final AdapterView<?> arg0, final View arg1, final int arg2, final long arg3){
+    	
+    	//Mostrar diálogo para preguntar si se planta o continua...
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        dialogBuilder.setTitle("Eliminar contenido");
+        dialogBuilder.setMessage("¿Desea eliminar este elemento?");
+
+        //NO ELIMINAR
+        dialogBuilder.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            	//                
+            }
+        });
+
+        //SI ELIMINAR
+        dialogBuilder.setPositiveButton("SI", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            	//
+                eliminarContenido(arg0, arg1, arg2, arg3);
+            }
+        });
+
+        Dialog dialog = dialogBuilder.create();
+        dialog.show();
+    }
+	
+	private void eliminarContenido(AdapterView<?> arg0, View arg1, int arg2, long arg3){
+
+		//TODO
+		Toast.makeText(arg0.getContext(), "Fila: " + arg3, Toast.LENGTH_SHORT).show();
+		
 	}
 
 }
