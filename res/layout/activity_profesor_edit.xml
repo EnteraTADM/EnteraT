@@ -31,6 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_tipo_tarea"
+                android:textSize="25sp"               
                 android:textAppearance="?android:attr/textAppearanceMedium" />
             
             <TextView
@@ -45,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_tipo_asignatura"
+                android:textSize="25sp"      
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
           
@@ -64,6 +66,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/txt_fecha"
+                android:textSize="25sp"      
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
            

@@ -143,4 +143,28 @@ public class Incidencia {
 		return 1;
 	}
 
+	
+	public int modificarIncidencia(String fecha, String concepto, String conceptoNew)
+	{
+		//
+		String sql1 = "UPDATE INCIDENCIA SET concepto = '"+conceptoNew+"' ";
+		String sql2 = "WHERE fecha = '" + fecha + "' and concepto = '" + concepto + "'";
+
+		//
+		List<NameValuePair> pairs = new ArrayList<NameValuePair>();
+		pairs.add(new BasicNameValuePair("sqlquery1", sql1));
+		pairs.add(new BasicNameValuePair("sqlquery2", sql2));				
+
+		new WSConection(pairs, "service.executeSQL.php", Constantes.SQL_MODIFICAR, Constantes.SERV_IMPARTE, new IConexion() {
+
+			@Override
+			public void getJsonFromWS(JSONObject json) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		//Tarea eliminada
+		return 1;
+	}
 }

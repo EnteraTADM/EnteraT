@@ -64,6 +64,8 @@
     <string name="msg_publicar_anuncio_fail">No se ha podido publicar el anuncio</string>
     <string name="msg_publicar_incidencia_ok">Incidencia publicada correctamente</string>
     <string name="msg_publicar_incidencia_fail">No se ha podido publicar la incidencia</string>
+    <string name="msg_modificar_ok">Modificación realizada correctamente</string>
+    <string name="msg_modificar_fail">No se ha podido realizar la modificación</string>
     <string name="msg_login_ok">Login OK</string>
     <string name="msg_login_no_ok">Datos erróneos</string>
     <string name="msg_sin_conexion">No hay conexión a Internet</string>
