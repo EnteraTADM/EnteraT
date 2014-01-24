@@ -2,7 +2,7 @@
  * 2013-12-26 
  * Clase creada por Jose Chamorro
  * 
- * Clase para gestionar las notas de las matrículas de los alumnos en las asignaturas 
+ * Clase para gestionar las notas de las matriculas de los alumnos en las asignaturas 
  */
 
 package com.enterat.bda;

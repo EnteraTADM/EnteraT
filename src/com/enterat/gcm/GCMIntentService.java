@@ -53,9 +53,13 @@ public class GCMIntentService extends IntentService
 		Intent notIntent =  new Intent(this, LoginActivity.class);    
 		PendingIntent contIntent = PendingIntent.getActivity(     
 				this, 0, notIntent, 0);   
-		
+		mBuilder.setAutoCancel(true);
 		mBuilder.setContentIntent(contIntent);
 		
 		mNotificationManager.notify(NOTIF_ALERTA_ID, mBuilder.build());
+		
     }
+	
+	
+	
 }

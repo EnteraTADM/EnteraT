@@ -11,11 +11,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-
 import com.enterat.services.Conexion;
-import com.enterat.services.IConexion;
-import com.enterat.services.WSConection;
 import com.enterat.util.Constantes;
 
 public class Usuario {
