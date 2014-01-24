@@ -115,7 +115,9 @@ public class ProfesorEditItem extends Activity{
 		SharedPreferences prefe = getSharedPreferences("guardado_profedit", Context.MODE_PRIVATE);
 		TareaUpdateTask tarUpd = new TareaUpdateTask();
 		tarUpd.setConcepto(datos.getString("concepto"));
-		tarUpd.setConceptoNew(prefe.getString("contenido",""));
+		EditText contenido = (EditText)findViewById(R.id.contenido_t2);
+		
+		tarUpd.setConceptoNew(contenido.getText().toString());
 		tarUpd.setFecha(datos.getString("fecha"));
 		tarUpd.setTipo(datos.getInt("tipo"));
 		tarUpd.setContext(ProfesorEditItem.this);
